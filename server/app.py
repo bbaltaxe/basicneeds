@@ -25,6 +25,19 @@ BOOKS = [
     }
 ]
 
+CAMPUSES = {
+    'UCSC':'Santa Cruz', 
+    'UCB':'Berkeley', 
+    'UCD':'Davis', 
+    'UCI':'Irvine', 
+    'UCLA':'Los Angeles', 
+    'UCM':'Merced', 
+    'UCR':'Riverside', 
+    'UCSD':'San Diego', 
+    'UCSF':'San Francisco', 
+    'UCSB':'Santa Barbara'
+}
+
 # configuration
 DEBUG = True
 
@@ -49,7 +62,14 @@ def remove_book(book_id):
 def ping_pong():
     return jsonify('pong!')
 
+#home campus route 
+@app.route('/campuses', methods=['GET'])
+def all_campuses(): 
+    response_object = {'status': 'success'}
+    response_object['campuses'] = CAMPUSES
+    return jsonify(response_object)
 
+# books example route
 @app.route('/books', methods=['GET', 'POST'])
 def all_books():
     response_object = {'status': 'success'}
