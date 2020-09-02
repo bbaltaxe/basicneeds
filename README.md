@@ -1,4 +1,4 @@
-#UC Basic Needs Webpage
+# UC Basic Needs Webpage
 
 This repo is for the preliminary development of a UC-wide basic needs webapp. 
 
