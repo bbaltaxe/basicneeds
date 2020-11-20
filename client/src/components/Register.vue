@@ -1,4 +1,4 @@
-<!-- Login page for webapp --> 
+<!-- Registration page for webapp --> 
 
 <template>
   <div class="container">
@@ -9,11 +9,27 @@
             class="login-form"
             v-model="formValues"
           >
-            <h2 class="form-title">Login</h2>
+            <h2 class="form-title">Register</h2>
             <p>
-            Welcome back! Please input your ID and capus to continue. 
+            Welcome to the UC Basic Needs landing page! It looks like this is your first time here. Please register by filling in the fields below. 
             </p>
 
+            <FormulateInput
+              type="text"
+              label="Preferred Name"
+              name="Name"
+              validation="bail|required"
+            />
+            <br>
+            <FormulateInput
+              type="email"
+              label="UC email"
+              name="email"
+              validation="bail|required|email|ends_with:ucsc.edu,berkeley.edu,ucla.edu,ucsd.edu,ucsb.edu,ucdavis.edu,uci.edu,ucr.edu,ucmerced.edu,
+              "
+            />
+            <!-- TODO: check email for what UC they are from --> 
+            <br>
             <FormulateInput
               type="text"
               label="Student ID"
@@ -35,6 +51,14 @@
               type="select"
               placeholder="your campus"
               label="What is the campus you attend"
+            />
+            <br>
+            <FormulateInput
+              name="nearby"
+              :options=campuses
+              type="select"
+              placeholder="nearest campus"
+              label="What is your nearest campus? (you can change this later)"
             />
             <br>
             <FormulateInput
