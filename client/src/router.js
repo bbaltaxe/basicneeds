@@ -1,29 +1,44 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Books from './components/Books.vue';
-import Ping from './components/Ping.vue';
-import Login from './components/Login.vue';
+import Vue from 'vue'
+import Router from 'vue-router'
+import Home from './views/Home.vue'
+import About from './views/About.vue'
+import Groceries from './views/Groceries.vue'
+import Housing from './views/Housing.vue'
+import MentalWellbeing from './views/MentalWellbeing.vue'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'Login',
-      component: Login,
-    },
-    {
-      path: '/ping',
-      name: 'Ping',
-      component: Ping,
-    },
-    {
-      path: '/books',
-      name: 'Books',
-      component: Books,
-    },
-  ],
-});
+
+	mode: 'history',
+	base: process.env.BASE_URL, 
+	routes:[
+		{
+			path: '/',
+			name: 'home',
+			component: Home
+		},
+		{
+			path: '/about',
+			name: 'about',
+			component: About
+		},
+		{
+			path: '/groceries',
+			name: 'groceries',
+			component: Groceries
+		},
+		{
+			path: '/housing',
+			name: 'housing',
+			component: Housing
+		},
+		{
+			path: '/mental_wellbeing',
+			name: 'mental_wellbeing',
+			component: MentalWellbeing
+		}
+
+	]
+
+})

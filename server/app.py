@@ -25,18 +25,19 @@ BOOKS = [
     }
 ]
 
-CAMPUSES = {
-    'UCSC':'Santa Cruz', 
-    'UCB':'Berkeley', 
-    'UCD':'Davis', 
-    'UCI':'Irvine', 
-    'UCLA':'Los Angeles', 
-    'UCM':'Merced', 
-    'UCR':'Riverside', 
-    'UCSD':'San Diego', 
-    'UCSF':'San Francisco', 
-    'UCSB':'Santa Barbara'
-}
+CAMPUSES = [
+    
+    'UC Santa Cruz', 
+    'UC Berkeley', 
+    'UC Davis', 
+    'UC Irvine', 
+    'UC Los Angeles', 
+    'UC Merced', 
+    'UC Riverside', 
+    'UC San Diego', 
+    'UC San Francisco', 
+    'UC Santa Barbara'
+]
 
 # configuration
 DEBUG = True
