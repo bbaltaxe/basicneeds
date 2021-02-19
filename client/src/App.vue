@@ -47,7 +47,7 @@
     </v-app-bar>
 
     
-
+<!--
       <v-card-text>
         <v-carousel
     cycle
@@ -76,7 +76,8 @@
     </v-carousel-item>
   </v-carousel>
       </v-card-text>
-      
+-->
+
     </v-main>
   </v-app>
 </template>
