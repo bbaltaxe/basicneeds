@@ -1,11 +1,11 @@
 <template>
   <v-app id="inspire">
-    
-    <v-main> 
-      
+
+    <v-main>
+
         <router-view/>
 
-    
+
 
 <v-navigation-drawer
       v-model="drawer"
@@ -20,6 +20,7 @@
         <v-list-item-group
           v-model="group"
         >
+
           <v-list-item to="/groceries">
             <v-list-item-title>Groceries</v-list-item-title>
           </v-list-item>
@@ -39,14 +40,14 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar 
+    <v-app-bar
     app color=primary>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title style="cursor: pointer" @click="$router.push('/')">Basic Needs</v-toolbar-title>
 
     </v-app-bar>
 
-    
+
 <!--
       <v-card-text>
         <v-carousel

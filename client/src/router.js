@@ -6,13 +6,14 @@ import Groceries from './views/Groceries.vue'
 import Housing from './views/Housing.vue'
 import MentalWellbeing from './views/MentalWellbeing.vue'
 import Login from './views/Login.vue'
+import Campus from './views/Campus.vue'
 
 Vue.use(Router)
 
 export default new Router({
 
 	mode: 'history',
-	base: process.env.BASE_URL, 
+	base: process.env.BASE_URL,
 	routes:[
 		{
 			path: '/',
@@ -40,9 +41,14 @@ export default new Router({
 			component: MentalWellbeing
 		},
 		{
-			path: '/login', 
+			path: '/login',
 			name: 'login',
 			component: Login
+		},
+		{
+			path: '/campus',
+			name: 'Choose Campus',
+			component: Campus
 		}
 
 	]
