@@ -1,7 +1,20 @@
-# UC Basic Needs Webpage
-
-This repo is for the preliminary development of a UC-wide basic needs webapp. 
-
-It uses Flask and Vue.js. 
-The base template can be found from [testdrivenio](https://github.com/testdrivenio/flask-vue-crud). Thanks! 
-
+asn1crypto==1.4.0
+certifi==2020.12.5
+cffi==1.14.5
+chardet==3.0.4
+click==7.1.2
+cryptography==2.7
+duo-universal==1.0.1
+Flask==1.0.2
+Flask-Cors==3.0.7
+idna==2.8
+itsdangerous==1.1.0
+Jinja2==2.11.3
+MarkupSafe==1.1.1
+pycparser==2.20
+PyJWT==1.7.1
+pyOpenSSL==19.0.0
+requests==2.22.0
+six==1.15.0
+urllib3==1.25.11
+Werkzeug==1.0.1
