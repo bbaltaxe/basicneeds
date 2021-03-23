@@ -1,7 +1,7 @@
 <template> 
-
       
 <v-container>
+    <alert :message=alertMessage v-if="showError"></alert>
    <v-text-field
       v-model="name"
       label="name"
@@ -28,6 +28,7 @@
 
 <script>
 import axios from 'axios';
+import Alert from '../components/Alert.vue';
 export default {
 
     data() {
@@ -35,10 +36,19 @@ export default {
             name: "",
             password:"",
             response:"",
+            alertMessage: "",
+            showError: false,
+
         }
     },
+    components:{
+        alert: Alert,
+    },
     methods: {
-            
+            initForm(){
+                this.name = "";
+                this.password = "";
+            }, 
             onSubmit(evt){
                 evt.preventDefault();
                 const path = 'http://localhost:5000/duo';
@@ -47,14 +57,22 @@ export default {
                     password: this.password,
                 };
                 axios.post(path, payload)
-                    .then((res)=> {
-                        console.log(res);
-                        window.location.href = res;
+                    .then((response)=> {
+                        console.log(response);
+                        if(response.data['is_redirect'] === "true"){
+                            //window.location.href = response.data['redirect_url'];
+                            console.log(response.data['redirect_url']);
+                        }else{
+                                this.showError = true;
+                                console.log(response.data['msg']);
+                                this.alertMessage = response.data["msg"];
+                        }
 
                 })
                      .catch((error)=> {
                          console.log(error);
                 });
+                this.initForm();
             }
     }
 }

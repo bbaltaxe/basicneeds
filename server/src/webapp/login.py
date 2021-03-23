@@ -42,15 +42,24 @@ def login_post():
 
     ->Accepts json
     """
-    response_object = {'staus': 'success', 'msg': "NA"}
+    response_object = {
+        'staus': 'success',
+        'msg': "NA",
+        'state': 'NA',
+        'username': 'NA',
+        'is_redirect': 'true',
+        'redirect_url': "/",
+    }
     if request.method == 'POST':
         try:
             duo_client.health_check()
         except DuoException:
             traceback.print_exc()
             if duo_failmode.upper() == "OPEN":
+                response_object['is_redirect'] = 'false'
                 response_object["msg"] = "Login 'Successful', but 2FA Not Performed. Confirm Duo client/secret/host values are correct"
             else:
+                response_object['is_redirect'] = 'false'
                 response_object["msg"] = "2FA Unavailable. Confirm Duo client/secret/host values are correct"
             return jsonify(response_object)
 
@@ -58,21 +67,25 @@ def login_post():
     post_data = request.get_json()
     username = post_data["name"]
     password = post_data["password"]
-
     print(username)
     print(password)
     state = duo_client.generate_state()
     session['state'] = state
     session['username'] = username
+
+    #CLIENT session
+    response_object['state'] = state
+    response_object['username'] = username
+
     prompt_uri = duo_client.create_auth_url(username, state)
-    response_object['msg'] = prompt_uri
+    response_object['redirect_url'] = prompt_uri
     return jsonify(response_object)#successful validation
 
 
 #This route URL must match the redirect_uri passed to the duo client
 @app.route("/duo-callback")
 def duo_callback():
-    response_object = {"callback_msg": ''}
+    response_object = {"callback_msg": '', 'is_redirect': 'False'}
     if request.args.get('error'):
         return "Got Error: {}".format(request.args)
 
@@ -81,6 +94,10 @@ def duo_callback():
 
     # Get authorization token to trade for 2FA
     code = request.args.get('duo_code')
+
+    print("CALLBACK STATE: ", session['state'])
+    print("CALLBACK: ", session['username'])
+    print(session)
 
     if 'state' in session and 'username' in session:
         saved_state = session['state']
@@ -102,6 +119,7 @@ def duo_callback():
     # Exchange happened successfully so render success page
     response_object["callback_msg"] = "successs"
     return jsonify(response_object)
+
 
 
 
