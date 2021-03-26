@@ -58,6 +58,8 @@ def login_post():
             if duo_failmode.upper() == "OPEN":
                 response_object['is_redirect'] = 'false'
                 response_object["msg"] = "Login 'Successful', but 2FA Not Performed. Confirm Duo client/secret/host values are correct"
+            elif duo_failmode.upper() == "ERR_USERNAME":
+                response['msg'] = "Login Unsuccessful: Wrong username"
             else:
                 response_object['is_redirect'] = 'false'
                 response_object["msg"] = "2FA Unavailable. Confirm Duo client/secret/host values are correct"
@@ -67,15 +69,13 @@ def login_post():
     post_data = request.get_json()
     username = post_data["name"]
     password = post_data["password"]
-    print(username)
-    print(password)
     state = duo_client.generate_state()
     session['state'] = state
     session['username'] = username
 
     #CLIENT session
-    response_object['state'] = state
-    response_object['username'] = username
+   # response_object['state'] = state
+   # response_object['username'] = username
 
     prompt_uri = duo_client.create_auth_url(username, state)
     response_object['redirect_url'] = prompt_uri
@@ -95,9 +95,6 @@ def duo_callback():
     # Get authorization token to trade for 2FA
     code = request.args.get('duo_code')
 
-    print("CALLBACK STATE: ", session['state'])
-    print("CALLBACK: ", session['username'])
-    print(session)
 
     if 'state' in session and 'username' in session:
         saved_state = session['state']

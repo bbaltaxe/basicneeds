@@ -1,7 +1,7 @@
 <template> 
       
 <v-container>
-    <alert :message=alertMessage v-if="showError"></alert>
+    <alert v-if="showError"></alert>
    <v-text-field
       v-model="name"
       label="name"
@@ -38,7 +38,6 @@ export default {
             response:"",
             alertMessage: "",
             showError: false,
-
         }
     },
     components:{
@@ -49,6 +48,15 @@ export default {
                 this.name = "";
                 this.password = "";
             }, 
+            validate(){
+                if(this.name === "" || this.password === ""){
+                    console.log("HSDILFJSDKLFJDFJ");
+                    this.showError = true;
+                    this.alertMessage = "Please Enter Username and Password";
+                    this.initForm();
+                } 
+
+            },
             onSubmit(evt){
                 evt.preventDefault();
                 const path = 'http://localhost:5000/duo';
@@ -56,18 +64,17 @@ export default {
                     name: this.name,
                     password: this.password,
                 };
+                this.validate();
                 axios.post(path, payload)
                     .then((response)=> {
                         console.log(response);
                         if(response.data['is_redirect'] === "true"){
-                            //window.location.href = response.data['redirect_url'];
                             console.log(response.data['redirect_url']);
                         }else{
                                 this.showError = true;
                                 console.log(response.data['msg']);
                                 this.alertMessage = response.data["msg"];
                         }
-
                 })
                      .catch((error)=> {
                          console.log(error);

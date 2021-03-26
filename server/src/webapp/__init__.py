@@ -3,11 +3,12 @@ import uuid
 import json
 import os
 import traceback
-import sqlalchemy
 
 
-from flask import Flask, jsonify, request, session
+from flask import Flask, jsonify, request
 from flask_cors import CORS
+
+from flask_sqlalchemy import SQLAlchemy
 
 from duo_universal.client import Client, DuoException
 
@@ -53,7 +54,16 @@ DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
 
+#student db init
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///basicneedstest.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
 import webapp.login
+import webapp.database
+
+from webapp.database import Student
+
 
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
