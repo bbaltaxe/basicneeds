@@ -3,6 +3,8 @@ from webapp import app, db
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+import enum
+
 class Student(db.Model):
     __tablename__ = 'student'
     id = db.Column(db.Integer, primary_key=True)
@@ -15,6 +17,7 @@ class Student(db.Model):
     
 
 class StudentServiceList(db.Model):
+    pkey = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('Student.id'))
     service_id = db.Column(db.Integer, db.ForeignKey('Service.id'))
 
@@ -59,7 +62,7 @@ class Service(db.Model):
     __tablename__ = "service"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=False, nullable=False)
-    campus = db.Column(IntEnum(School))
+    campus = db.Column(IntEnum(Schools))
     category = db.Column(db.String(20), unique=True, nullable=False)
 
     def __repr__(self):
