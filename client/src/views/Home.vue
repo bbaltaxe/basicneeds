@@ -1,7 +1,8 @@
-<template> 
+<template>
 	<v-card-text>
 		<div class="home">
-			<h1>welcome home!</h1>
+			<app-HomePage></app-HomePage>
+
 		</div>
 	</v-card-text>
-</template> 
+</template>

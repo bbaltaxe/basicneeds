@@ -51,6 +51,8 @@
 </template>
 
 <script>
+
+
   export default {
     name:'App',
     data () {
@@ -72,6 +74,9 @@
           'Fifth',
         ],
       }
+    },
+    components:{
+    
     },
     watch: {
       group () {

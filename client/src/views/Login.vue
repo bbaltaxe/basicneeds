@@ -1,7 +1,7 @@
 <template> 
       
 <v-container>
-    <alert v-if="showError"></alert>
+    <alert v-if="showError" :msg=alertMessage></alert>
    <v-text-field
       v-model="name"
       label="name"
@@ -50,12 +50,10 @@ export default {
             }, 
             validate(){
                 if(this.name === "" || this.password === ""){
-                    console.log("HSDILFJSDKLFJDFJ");
                     this.showError = true;
-                    this.alertMessage = "Please Enter Username and Password";
+                    this.alertMessage = "Please enter username and/or password";
                     this.initForm();
                 } 
-
             },
             onSubmit(evt){
                 evt.preventDefault();

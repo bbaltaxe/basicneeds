@@ -5,6 +5,15 @@
       type="error"
       color="red"
     >
+    {{msg}}
     </v-alert>
 </template>
 
+<script>
+export default {
+    props: ["msg"],
+
+}
+
+
+</script>
