@@ -5,8 +5,13 @@ import About from './views/About.vue'
 import Groceries from './views/Groceries.vue'
 import Housing from './views/Housing.vue'
 import MentalWellbeing from './views/MentalWellbeing.vue'
-import Login from './views/Login.vue'
 import Campus from './views/Campus.vue'
+import Intake from './components/Intake.vue'
+import HelloWorld from './components/HelloWorld.vue'
+import NavBar from './components/NavBar.vue'
+import Login from './components/Login.vue'
+import HomePage from './components/HomePage.vue'
+import Popup from './components/Popup.vue'
 
 Vue.use(Router)
 
@@ -49,6 +54,32 @@ export default new Router({
 			path: '/campus',
 			name: 'Choose Campus',
 			component: Campus
+		},
+		{
+			path: '/intake',
+			name: 'intake form',
+			component: Intake
+		},
+		{
+			path: '/hello',
+			name: 'hello world',
+			component: HelloWorld
+		},
+		{
+			path: '/navBar',
+			name: 'nav bar',
+			component: NavBar
+		}
+		,
+		{
+			path: '/homepage',
+			name: 'home page',
+			component: HomePage
+		},
+		{
+			path: '/Popup',
+			name: 'Popup',
+			component: Popup
 		}
 
 	]

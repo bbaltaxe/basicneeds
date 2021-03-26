@@ -16,7 +16,8 @@
 				<v-list-item-title>University of California at Merced</v-list-item-title>
 			</v-list-item>
 
-        
+
+
 
 		</div>
 

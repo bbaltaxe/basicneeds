@@ -1,12 +1,16 @@
 <template>
+
   <v-app id="inspire">
 
+
     <v-main>
+
 
         <router-view/>
 
 
-
+  <app-NavBar></app-NavBar>
+<p>Hello</p>
 <v-navigation-drawer
       v-model="drawer"
       absolute
@@ -40,7 +44,11 @@
       </v-list>
     </v-navigation-drawer>
 
+    <app-NavBar></app-NavBar>
+
+
     <v-app-bar
+
     app color=primary>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title style="cursor: pointer" @click="$router.push('/')">Basic Needs</v-toolbar-title>
