@@ -81,21 +81,20 @@ class OperatingFrequency(enum.IntEnum):
 
     
 
-
-
 class Service(db.Model):
     __tablename__ = "service"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=False, nullable=False)
     email = db.Column(db.String())
-    campus = db.Column(IntEnum(Schools))
+    campus = db.Column(IntEnum(Schools), nullable=False)
     category = db.Column(db.String(20), unique=True, nullable=False)
     address = db.Column(db.String(200), unique=False)
     description = db.Column(db.String(1000))
-    categories = db.Column(db.IntEnum(Categories))
-    operating_freq = db.Column(db.IntEnum(OperatingFrequency))
+    categories = db.Column(IntEnum(Categories))
+    operating_freq = db.Column(IntEnum(OperatingFrequency))
 
 
     def __repr__(self):
         return f"Service('{self.name}', )"
+
 

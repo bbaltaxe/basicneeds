@@ -38,6 +38,7 @@ export default {
             response:"",
             alertMessage: "",
             showError: false,
+            apiRoot: process.env.VUE_APP_API_ROOT,
         }
     },
     components:{
@@ -57,7 +58,7 @@ export default {
             },
             onSubmit(evt){
                 evt.preventDefault();
-                const path = 'http://localhost:5000/duo';
+                const path = `http://${this.apiRoot}:5000/duo`;
                 const payload = {
                     name: this.name,
                     password: this.password,

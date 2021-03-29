@@ -1,4 +1,4 @@
-from webapp import app
+from webapp import app, db
 import uuid
 
 import configparser
@@ -40,7 +40,17 @@ def login_post():
     """
     Login protocol for reading user forms on /login
 
-    ->Accepts json
+    ->Accepts request (from client)
+    {
+        name: "foo",
+        password: "bar
+    }
+
+    Output:
+        json (send back to client):
+            *is_redirect true: if successful authentication to duo -> redirect_url will have proper url
+            *msg: data to be displayed if need be
+            *username and state are session values to be used by the client
     """
     response_object = {
         'staus': 'success',
@@ -72,10 +82,10 @@ def login_post():
     state = duo_client.generate_state()
     session['state'] = state
     session['username'] = username
-
+    print(session['state'])
     #CLIENT session
-   # response_object['state'] = state
-   # response_object['username'] = username
+    response_object['state'] = state
+    response_object['username'] = username
 
     prompt_uri = duo_client.create_auth_url(username, state)
     response_object['redirect_url'] = prompt_uri
@@ -85,7 +95,11 @@ def login_post():
 #This route URL must match the redirect_uri passed to the duo client
 @app.route("/duo-callback")
 def duo_callback():
-    response_object = {"callback_msg": '', 'is_redirect': 'False'}
+    response_object = {
+        "callback_msg": '', 
+        'is_redirect': 'False', 
+        "state" : request.get('state'),
+    }
     if request.args.get('error'):
         return "Got Error: {}".format(request.args)
 
