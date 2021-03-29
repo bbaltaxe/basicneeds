@@ -12,6 +12,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from duo_universal.client import Client, DuoException
 
+
 BOOKS = [
     {
         'id': uuid.uuid4().hex,
@@ -34,16 +35,16 @@ BOOKS = [
 ]
 
 CAMPUSES = [
-
-    'UC Santa Cruz',
-    'UC Berkeley',
-    'UC Davis',
-    'UC Irvine',
-    'UC Los Angeles',
-    'UC Merced',
-    'UC Riverside',
-    'UC San Diego',
-    'UC San Francisco',
+    
+    'UC Santa Cruz', 
+    'UC Berkeley', 
+    'UC Davis', 
+    'UC Irvine', 
+    'UC Los Angeles', 
+    'UC Merced', 
+    'UC Riverside', 
+    'UC San Diego', 
+    'UC San Francisco', 
     'UC Santa Barbara'
 ]
 
@@ -53,6 +54,7 @@ DEBUG = True
 # instantiate the app
 app = Flask(__name__)
 app.config.from_object(__name__)
+
 
 #student db init
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///basicneedstest.db'
@@ -65,8 +67,11 @@ import webapp.database
 from webapp.database import Student
 
 
+
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
+
+
 def remove_book(book_id):
     for book in BOOKS:
         if book['id'] == book_id:
@@ -80,9 +85,9 @@ def remove_book(book_id):
 def ping_pong():
     return jsonify('pong!')
 
-#home campus route
+#home campus route 
 @app.route('/campuses', methods=['GET'])
-def all_campuses():
+def all_campuses(): 
     response_object = {'status': 'success'}
     response_object['campuses'] = CAMPUSES
     return jsonify(response_object)
