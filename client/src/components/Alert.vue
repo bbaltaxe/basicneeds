@@ -1,12 +1,12 @@
 <template>
-<v-alert
-      dense
-      outlined
-      type="error"
-      color="red"
-    >
-    {{msg}}
-    </v-alert>
+  <v-alert
+    dense
+    outlined
+    type="error"
+    color="red"
+  >
+    {{ msg }}
+  </v-alert>
 </template>
 
 <script>

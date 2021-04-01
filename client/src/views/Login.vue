@@ -1,18 +1,20 @@
 
-<template> 
-      
-<v-container>
-    <alert v-if="showError" :msg=alertMessage></alert>
-   <v-text-field
+<template>
+  <v-container>
+    <alert
+      v-if="showError"
+      :msg="alertMessage"
+    />
+    <v-text-field
       v-model="name"
       label="name"
       required
-    ></v-text-field>
-<v-text-field
+    />
+    <v-text-field
       v-model="password"
       label="password"
       required
-    ></v-text-field>
+    />
 
     <v-btn
       color="success"
@@ -21,16 +23,16 @@
     >
       Login
     </v-btn>
-
-</v-container>
-
-
+  </v-container>
 </template> 
 
 <script>
 import axios from 'axios';
 import Alert from '../components/Alert.vue';
 export default {
+    components:{
+        alert: Alert,
+    },
 
     data() {
         return {
@@ -41,9 +43,6 @@ export default {
             showError: false,
             apiRoot: process.env.VUE_APP_API_ROOT,
         }
-    },
-    components:{
-        alert: Alert,
     },
     methods: {
             initForm(){

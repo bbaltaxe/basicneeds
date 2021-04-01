@@ -1,28 +1,41 @@
 <template> 
   <v-card-text>
     <div class="container-fluid">
+      
       <div class="row">
-        <div class="col-sm">
-          <ServiceFilter/>
+        <div class="col-xs">
+          <ServiceFilter />
         </div>
-      <div class="col-lg">
+        <div class="col">
+          <v-card 
+            color="grey"
+            class="mx-auto"
+          > 
+            <v-col
+              class="d-flex"
+              cols="12"
+              sm="6"
+            >
+              <v-select
+                :items="sortby"
+                label="Sort By"
+                solo
+              />
+
+            </v-col>
+
+            Resources can go here
+            <v-card> 
+            Maybe in their own card
+          </v-card>
+
+          or something
+
     
-      <v-card 
-      class = "mr-auto"> 
-      <v-col
-        class="d-flex"
-        cols="12"
-        sm="6"
-      >
-        <v-select
-          :items="sortby"
-          label="Sort By"
-          solo
-        ></v-select>
-      </v-col>
-    </v-card>
-  </div>
-    </div>
+
+          </v-card>
+        </div>
+      </div>
     </div>
   </v-card-text>
 </template> 

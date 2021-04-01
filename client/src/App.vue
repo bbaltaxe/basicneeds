@@ -90,6 +90,9 @@
 
   export default {
     name:'App',
+    components:{
+    
+    },
     data () {
       return {
         drawer: false,
@@ -109,9 +112,6 @@
           'Fifth',
         ],
       }
-    },
-    components:{
-    
     },
     watch: {
       group () {
