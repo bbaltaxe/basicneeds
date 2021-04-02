@@ -14,7 +14,8 @@ CAMPUSES = [
     'UC Riverside', 
     'UC San Diego', 
     'UC San Francisco', 
-    'UC Santa Barbara'
+    'UC Santa Barbara',
+    
 ]
 
  #home campus route 

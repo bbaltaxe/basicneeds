@@ -24,6 +24,9 @@ def register():
 
         db = get_db()
         error = False
+        user_found = db.execute('SELECT id FROM user WHERE username = ?', (username,)).fetchone()
+    
+        print(user_found)
 
         if not username:
             response_object['insert_status'] = "fail"
@@ -33,12 +36,13 @@ def register():
             response_object['insert_status'] = "fail"
             response_object['msg'] = 'Password is required.'
             error = True
-        elif db.execute(
-            'SELECT id FROM user WHERE username = ?', (username,)
-        ).fetchone() is not None:
-            response_object['status'] = "fail"
-            response_object['msg'] = 'User {} is already registered.'.format(username)
+        elif user_found is not None:
+            
+            response_object['insert_status'] = "fail"
+            response_object['msg'] = "User already registered"
+            error = True
 
+        print(error)
         if not error:
             db.execute(
                 'INSERT INTO user (username, password) VALUES (?, ?)',
@@ -51,26 +55,28 @@ def register():
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
+    response_object = {"status": "success"}
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         db = get_db()
-        error = None
+        error = False
         user = db.execute(
             'SELECT * FROM user WHERE username = ?', (username,)
         ).fetchone()
 
         if user is None:
-            error = 'Incorrect username.'
+            request_object['msg'] = 'Incorrect username.'
+            error = True
         elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
+            request_object['msg'] = 'Incorrect password.'
+            error = True
 
-        if error is None:
+        #proper auth
+        if not error:
             session.clear()
             session['user_id'] = user['id']
             return redirect(url_for('index'))
-
-        flash(error)
 
     return render_template('auth/login.html')
 
