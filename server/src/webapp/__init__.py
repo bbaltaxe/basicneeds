@@ -12,6 +12,7 @@ from flask_sqlalchemy import SQLAlchemy
 from duo_universal.client import Client, DuoException
 
 
+
 BOOKS = [
     {
         'id': uuid.uuid4().hex,
@@ -31,21 +32,7 @@ BOOKS = [
         'author': 'Dr. Seuss',
         'read': True
     }
-]
-
-CAMPUSES = [
-    
-    'UC Santa Cruz', 
-    'UC Berkeley', 
-    'UC Davis', 
-    'UC Irvine', 
-    'UC Los Angeles', 
-    'UC Merced', 
-    'UC Riverside', 
-    'UC San Diego', 
-    'UC San Francisco', 
-    'UC Santa Barbara'
-]
+] 
 
 # configuration
 DEBUG = True
@@ -77,6 +64,9 @@ def create_app(test_config=None):
 
     from . import auth 
     app.register_blueprint(auth.bp)
+
+    from .static_pages import campus 
+    app.register_blueprint(campus.bp)
 
     return app
 
