@@ -1,15 +1,14 @@
-import uuid
-
-import json
 import os
+import uuid
+import json
 import traceback
+import sqlite3
+import click
 
-
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, current_app, g
+from flask.cli import with_appcontext
 from flask_cors import CORS
-
 from flask_sqlalchemy import SQLAlchemy
-
 from duo_universal.client import Client, DuoException
 
 
@@ -51,27 +50,40 @@ CAMPUSES = [
 # configuration
 DEBUG = True
 
-# instantiate the app
-app = Flask(__name__)
-app.config.from_object(__name__)
+# app init
+def create_app(test_config=None):
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_mapping(
+        SECRET_KEY='dev',
+        DATABASE=os.path.join(app.instance_path, 'webapp.sqlite')
+    )
 
+    CORS(app, resources={r'/*': {'origins': '*'}})
 
-#student db init
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///basicneedstest.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+    if test_config is None:
+        #load the instance config, if it exists, when not testing
+        app.config.from_pyfile('config.py', silent=True)
+    else:
+        # load the test config if passed in
+        app.config.from_mapping(test_config)
 
-import webapp.login
-import webapp.database
+    try:
+        os.makedirs(app.instance_path)
+    except OSError:
+        pass 
 
-from webapp.database import Student
+    from . import db
+    db.init_app(app)
 
+    from . import auth 
+    app.register_blueprint(auth.bp)
 
+    return app
 
 # enable CORS
-CORS(app, resources={r'/*': {'origins': '*'}})
+#CORS(app, resources={r'/*': {'origins': '*'}})
 
-
+"""
 def remove_book(book_id):
     for book in BOOKS:
         if book['id'] == book_id:
@@ -127,7 +139,7 @@ def single_book(book_id):
         remove_book(book_id)
         response_object['message'] = 'Book removed!'
     return jsonify(response_object)
-
+"""
 
 if __name__ == '__main__':
     app.run()

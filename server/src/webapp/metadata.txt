@@ -1,0 +1,16 @@
+List of MetaData tags for shibboleth
+
+What we need
+------------
+1) First, Last Name 
+2) Mail 
+3) Affiliation(student, faculty, )
+
+Uniform Resource Name 
+    
+    1) eduPersonPrincipalName (EPPN) - has no local URN
+        - cruizid@ucsc.edu = user account. Included by default 
+
+    2) eduPersonAffiliation
+
+    3) urn:mace:ucsc.edu:metadata:attr:filter:edu:affiliation

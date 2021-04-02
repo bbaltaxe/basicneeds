@@ -3,35 +3,16 @@ from webapp import app, db
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+import sys
 import enum
 
-class Student(db.Model):
-    __tablename__ = 'student'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=False, nullable=False)
-    pw = db.Column(db.String(60), nullable=False)
-    email = db.Column(db.String(80), unique=True, nullable=False)
-
-    def __repr__(self):
-        return f"Student( '{self.id}', '{self.name}', '{self.email}' )"
-    
-
-class StudentServiceList(db.Model):
-    pkey = db.Column(db.Integer, primary_key=True)
-    student_id = db.Column(db.Integer, db.ForeignKey('Student.id'))
-    service_id = db.Column(db.Integer, db.ForeignKey('Service.id'))
-
-
-    def __repr__(self):
-        return f"('{self.student_id}', '{self.service_id}')"
-    
-#https://www.michaelcho.me/article/using-python-enums-in-sqlalchemy-models
+# https://www.michaelcho.me/article/using-python-enums-in-sqlalchemy-models
 class IntEnum (db.TypeDecorator):
     """
     Enables passing in a python enum and storing the enum's *value*
     in the db. 
 
-    The Default would have sotred the enum's *name*(string)
+    The Default would have stored the enum's *name*(string)
     """
     impl = db.Integer
 
@@ -79,6 +60,28 @@ class OperatingFrequency(enum.IntEnum):
     Bi_Weekly = 3
     TwentyFour_Seven = 4
 
+
+class Student(db.Model):
+    __tablename__ = 'student'
+    id = db.Column(db.Integer, primary_key=True)
+    campus = db.Column(IntEnum(Schools), nullable=False)
+    name = db.Column(db.String(80), unique=False, nullable=False)
+    pw = db.Column(db.String(60), nullable=False)
+    email = db.Column(db.String(80), unique=True, nullable=False)
+
+    def __repr__(self):
+        return f"Student( '{self.id}', '{self.name}', '{self.email}' )"
+    
+    
+
+class StudentServiceList(db.Model):
+    pkey = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('Student.id'))
+    service_id = db.Column(db.Integer, db.ForeignKey('Service.id'))
+
+
+    def __repr__(self):
+        return f"('{self.student_id}', '{self.service_id}')"
     
 
 class Service(db.Model):
@@ -98,3 +101,10 @@ class Service(db.Model):
         return f"Service('{self.name}', )"
 
 
+
+def add_db(inst):
+    db.add(inst)
+    try:
+        db.commit()
+    except SQLAlchemyError:
+        sys.stderr.wrtie("Error: DB Session was unable to commmit")
