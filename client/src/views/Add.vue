@@ -1,7 +1,6 @@
 <template> 
   <v-card-text>
     <div class="container-fluid">
-      
       <div class="row">
         <div class="col-xs">
           <ServiceFilter />
@@ -21,18 +20,9 @@
                 label="Sort By"
                 solo
               />
-
             </v-col>
-
-            Resources can go here
-            <v-card> 
-            Maybe in their own card
-          </v-card>
-
-          or something
-
-    
-
+            
+            <ResourceTable />
           </v-card>
         </div>
       </div>
@@ -42,8 +32,9 @@
 
 <script>
   import ServiceFilter from '../components/ServiceFilter.vue'
+  import ResourceTable from '../components/ResourceTable.vue'
   export default {
-    components: {ServiceFilter},
+    components: {ServiceFilter,ResourceTable},
     data: () => ({
       sortby: ['Date', 'Location', 'Resource Type', 'Popularity', 'Random'],
       location: ['here']
