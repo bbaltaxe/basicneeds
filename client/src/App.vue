@@ -40,7 +40,7 @@
       <v-app-bar 
         app
         color="primary"
-      >
+      >      
         <v-app-bar-nav-icon @click="drawer = !drawer" />
         <v-toolbar-title
           style="cursor: pointer"
@@ -48,6 +48,9 @@
         >
           Basic Needs
         </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-title >2</v-toolbar-title>
+        <v-toolbar-title>1</v-toolbar-title>
       </v-app-bar>
 
     
@@ -87,11 +90,12 @@
 
 <script>
 
-
   export default {
     name:'App',
     data () {
       return {
+        components:{
+        },
         drawer: false,
         group: null,
         colors: [
@@ -108,15 +112,17 @@
           'Fourth',
           'Fifth',
         ],
+        session_user: this.$session.get(),
       }
-    },
-    components:{
-    
     },
     watch: {
       group () {
         this.drawer = false
       },
     },
+    beforeCreate: function() {
+      //this.$session.exists() ? 
+      //userlogged = true : userlogged = false;
+    }
   }
 </script>
