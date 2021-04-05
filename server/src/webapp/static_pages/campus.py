@@ -1,5 +1,6 @@
 from flask import current_app, Blueprint, jsonify    
- 
+
+
 bp = Blueprint('campus', __name__)
 
 

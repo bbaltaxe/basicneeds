@@ -13,7 +13,7 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 def register():
     response_object = {
         "insert_status": "success",
-        "msg": "registration successful"
+        "msg": "registration successful",
     }
 
     if request.method == 'POST':
@@ -25,8 +25,7 @@ def register():
         db = get_db()
         error = False
         user_found = db.execute('SELECT id FROM user WHERE username = ?', (username,)).fetchone()
-    
-        print(user_found)
+
 
         if not username:
             response_object['insert_status'] = "fail"
@@ -67,18 +66,19 @@ def login():
 
         if user is None:
             request_object['msg'] = 'Incorrect username.'
+            resquest_object['status'] = 'fail'
             error = True
         elif not check_password_hash(user['password'], password):
             request_object['msg'] = 'Incorrect password.'
+            resquest_object['status'] = 'fail'
             error = True
 
         #proper auth
         if not error:
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('index'))
-
-    return render_template('auth/login.html')
+    
+    return jsonify(response_object)
 
 @bp.before_app_request
 def load_logged_in_user():

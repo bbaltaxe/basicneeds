@@ -1,14 +1,20 @@
-
-<template> 
-      
-<v-container>
-    <alert v-if="showError" :msg=alertMessage></alert>
-   <v-text-field
+<template>
+  <v-container>
+    <v-card-text>
+      <h1>Login</h1>
+    </v-card-text>
+    <alert 
+      v-if="showError" 
+      :msg="alertMessage"
+    >
+    </alert>
+    <v-text-field
       v-model="name"
       label="name"
       required
-    ></v-text-field>
-<v-text-field
+    >
+    </v-text-field>
+    <v-text-field
       v-model="password"
       label="password"
       required
@@ -21,17 +27,18 @@
     >
       Login
     </v-btn>
-
-</v-container>
-
-
-</template> 
+  </v-container>
+</template>
 
 <script>
 import axios from 'axios';
-import Alert from '../components/Alert.vue';
-export default {
 
+import Alert from '../components/Alert.vue';
+
+export default {
+    components:{
+        alert: Alert,
+    },
     data() {
         return {
             name: "",
@@ -41,9 +48,6 @@ export default {
             showError: false,
             apiRoot: process.env.VUE_APP_API_ROOT,
         }
-    },
-    components:{
-        alert: Alert,
     },
     methods: {
             initForm(){
@@ -59,7 +63,7 @@ export default {
             },
             onSubmit(evt){
                 evt.preventDefault();
-                const path = `http://${this.apiRoot}:5000/duo`;
+                const path = `http://${this.apiRoot}:5000/auth/login`;
                 const payload = {
                     name: this.name,
                     password: this.password,
@@ -69,8 +73,16 @@ export default {
                     .then((response)=> {
                         console.log(response);
                         if(response.data['is_redirect'] === "true"){
-                            console.log(response.data['redirect_url']);
-                        }else{
+                            console.log(response);
+                            msg = response.data['msg'];
+                            if(msg === "Incorrect username" || 
+                               msg === "Incorrect password"){
+                                 this.showError = true;
+                                 this.alertMessage = "Incorrect Username/Password";
+                                 this.initForm();
+                               }
+                        }
+                        else {
                                 this.showError = true;
                                 console.log(response.data['msg']);
                                 this.alertMessage = response.data["msg"];
@@ -83,9 +95,4 @@ export default {
             }
     }
 }
-
-
 </script>
-
-
-

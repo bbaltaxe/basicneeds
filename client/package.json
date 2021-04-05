@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "vue": "^2.6.12",
     "vue-router": "^3.4.9",
+    "vue-session": "^1.0.0",
     "vuetify": "^2.2.11"
   },
   "devDependencies": {
