@@ -15,6 +15,14 @@
       <v-list-item to="/duo">
 				<v-list-item-title>University of California at Merced</v-list-item-title>
 			</v-list-item>
+			<v-btn
+		  depressed
+		  elevation="10"
+		  x-large
+			>
+			University of California
+			     at Santa Cruz
+			</v-btn>
 
 
 

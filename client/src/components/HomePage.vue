@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <v-row justify="space-around">
       <v-icon @click="model--">
         mdi-minus
@@ -16,7 +16,7 @@
       >
         <v-sheet
           :color="color"
-          height="100%"
+          height="90%"
           tile
         >
           <v-row
@@ -25,7 +25,7 @@
             justify="center"
           >
             <div class="display-3">
-              Slide {{ i + 1 }}
+              Slide {{ items.src }}
             </div>
           </v-row>
         </v-sheet>
@@ -44,6 +44,20 @@
           'yellow darken-2',
           'red',
           'orange',
+        ],
+        items: [
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          },
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+          },
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+          },
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+          },
         ],
         model: 0,
       }

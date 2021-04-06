@@ -7,49 +7,19 @@
           dark
           flat
         >
-        <v-navigation-drawer
-              v-model="drawer"
-              absolute
-              bottom
-              temporary
-            >
-              <v-list
-                nav
-                dense
-              >
-                <v-list-item-group
-                  v-model="group"
-                >
 
-                  <v-list-item to="/groceries">
-                    <v-list-item-title>Groceries</v-list-item-title>
-                  </v-list-item>
-
-                  <v-list-item to="/mental_wellbeing">
-                    <v-list-item-title>Mental Wellbeing</v-list-item-title>
-                  </v-list-item>
-
-                  <v-list-item to="/housing">
-                    <v-list-item-title>Housing</v-list-item-title>
-                  </v-list-item>
-
-                  <v-list-item to="/about">
-                    <v-list-item-title>About</v-list-item-title>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-            </v-navigation-drawer>
           <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
           <v-toolbar-title style="cursor: pointer" @click="$router.push('/')">Basic Needs</v-toolbar-title>
 
           <v-spacer>
+
           </v-spacer>
 
           <v-btn icon>
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
 
-          <v-btn icon>
+          <v-btn icon to="/homePage">
             <v-icon>mdi-dots-vertical</v-icon>
           </v-btn>
 
@@ -62,7 +32,7 @@
 
               <app-Login></app-Login>
 
-              <v-tab
+              <v-tab to="/housing"
               >
                 Housing
               </v-tab>
@@ -70,14 +40,19 @@
               >
                 Financial
               </v-tab>
-              <v-tab
+              <v-tab to="/groceries"
               >
                 Food
+              </v-tab>
+              <v-tab to="/mental_wellbeing"
+              >
+                Wellbeing
               </v-tab>
 
             </v-tabs>
           </template>
         </v-toolbar>
+
 
         <v-tabs-items v-model="model">
           <v-tab-item
@@ -94,6 +69,7 @@
     </v-app>
   </div>
 </template>
+<!--
 <script>
   export default {
     name:'App',
@@ -124,6 +100,7 @@
     },
   }
 </script>
+-->
 
 new Vue({
   el: '#app',
@@ -135,3 +112,41 @@ new Vue({
     }
   },
 })
+
+
+
+
+<!--
+<v-navigation-drawer
+      v-model="drawer"
+      absolute
+      bottom
+      temporary
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group
+          v-model="group"
+        >
+
+          <v-list-item to="/groceries">
+            <v-list-item-title>Groceries</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item to="/mental_wellbeing">
+            <v-list-item-title>Mental Wellbeing</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item to="/housing">
+            <v-list-item-title>Housing</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item to="/about">
+            <v-list-item-title>About</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+    -->

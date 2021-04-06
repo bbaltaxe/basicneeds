@@ -1,7 +1,7 @@
 <template>
 	<v-card-text>
 
-			<v-btn to="/campus"
+			<v-btn  to="/campus"
 				elevation="2"
 				plain
 				Login

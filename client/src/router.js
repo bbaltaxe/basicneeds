@@ -12,6 +12,7 @@ import NavBar from './components/NavBar.vue'
 import Login from './components/Login.vue'
 import HomePage from './components/HomePage.vue'
 import Popup from './components/Popup.vue'
+import AddResource from './components/AddResource.vue'
 
 Vue.use(Router)
 
@@ -80,6 +81,11 @@ export default new Router({
 			path: '/Popup',
 			name: 'Popup',
 			component: Popup
+		},
+		{
+			path: '/add',
+			name: 'AddResource',
+			component: AddResource
 		}
 
 	]
