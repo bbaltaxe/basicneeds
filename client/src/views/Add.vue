@@ -1,11 +1,13 @@
 <template> 
   <v-card-text>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-xs">
+    <v-container
+      fluid
+    >
+      <v-row>
+        <v-col>
           <ServiceFilter />
-        </div>
-        <div class="col">
+        </v-col>
+        <v-col>
           <v-card 
             color="grey"
             class="mx-auto"
@@ -21,12 +23,11 @@
                 solo
               />
             </v-col>
-            
             <ResourceTable />
           </v-card>
-        </div>
-      </div>
-    </div>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-card-text>
 </template> 
 
