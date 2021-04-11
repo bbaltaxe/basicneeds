@@ -3,20 +3,19 @@
     <v-row class="text-center">
       <v-col cols="12">
         <v-card
-          v-for="j in justify"
-          :key="j"
           class="d-flex mb-6"
           height="100"
         >
           <v-card
-            v-for="n in 3"
-            :key="n"
+            v-for="(value,name) in info"
+            :key="value"
             class="pa-2"
-            :class="[n === 1 && `align-self-${j}`]"
           >
-            {{ n === 1 ? 'Aligned flex item' : 'Flex item' }}hello
+            {{name}}:
+            <br>
+            {{value}}
           </v-card>
-          hi
+          
         </v-card>
       </v-col>
     </v-row>
@@ -26,7 +25,15 @@
 export default {
   name: "HelloWorld",
   data: () => ({
-    justify: ["start", "end", "center", "baseline", "auto", "stretch"],
+    // this is probably where we need to suck things in from the database 
+    info: {
+        Location: 'UCSC', 
+        Resource: 'Food',
+        Name: "SUA Food Pantry & Lounge", 
+        Description: "Choice-based food pantry and lounge space. Fresh produce, ready-to-eat meals, and non-perishable. Snacks, coffee, tea, & microwave are available", 
+        Hours: "Mon-Sat 10am-4pm", 
+        Added: false,
+      },
   }),
 };
 </script>

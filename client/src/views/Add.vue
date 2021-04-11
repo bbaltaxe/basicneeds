@@ -4,10 +4,13 @@
       fluid
     >
       <v-row>
-        <v-col>
+        <v-col
+        cols=3
+        >
           <ServiceFilter />
         </v-col>
-        <v-col>
+        <v-col
+        cols=9>
           <v-card 
             color="grey"
             class="mx-auto"

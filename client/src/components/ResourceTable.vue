@@ -1,6 +1,7 @@
 <template>
   <div>
     <ListItem />
+    <ListItem />
   </div>
 </template>
 

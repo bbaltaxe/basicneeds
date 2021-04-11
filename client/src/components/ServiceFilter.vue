@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <v-container
+  fluid
+  >
     <v-card
       class="mr-auto"
       max-width="300"
@@ -12,130 +14,119 @@
         <v-toolbar-title>Filter Results</v-toolbar-title>
       </v-toolbar>
 
+<!-- RESOURCE GROUP --> 
+
       <v-card-text>
         <h2 class="title mb-2">
           Resource Type
         </h2>
 
+        <v-switch
+          v-model="ractive"
+          label="All"
+          v-on:click="rtoggle"
+        />
+        
         <v-chip-group
-          v-model="resources"
-          column
+          column 
           multiple
+          v-model="resources"
         >
           <v-chip
-            filter
+            v-for="option in options"
+            :key="option"
+            filter 
             outlined
-          >
-            Wellness
-          </v-chip>
-          <v-chip
-            filter
-            outlined
-          >
-            Food
-          </v-chip>
-          <v-chip
-            filter
-            outlined
-          >
-            Housing
-          </v-chip>
-          <v-chip
-            filter
-            outlined
-          >
-            Finance
-          </v-chip>
-          <v-chip
-            filter
-            outlined
-          >
-            Other
+            v-on:click="rsel"
+          > 
+            {{ option }}
           </v-chip>
         </v-chip-group>
       </v-card-text>
+
+<!-- LOCATION GROUP --> 
 
       <v-card-text>
         <h2 class="title mb-2">
           Locations
         </h2>
 
+        <v-switch
+          v-model="active"
+          label="All"
+          v-on:click="ltoggle"
+        />
+        
         <v-chip-group
-          v-model="location"
-          column
+          column 
           multiple
+          v-model="locations"
         >
           <v-chip
-            filter
+            v-for="campus in campuses"
+            :key="campus"
+            filter 
             outlined
-          >
-            Santa Cruz
-          </v-chip>
-          <v-chip
-            filter
-            outlined
-          >
-            Los Angeles
-          </v-chip>
-          <v-chip
-            filter
-            outlined
-          >
-            Merced
-          </v-chip>
-          <v-chip
-            filter
-            outlined
-          >
-            Riverside
-          </v-chip>
-          <v-chip
-            filter
-            outlined
-          >
-            Davis
-          </v-chip>
-          <v-chip
-            filter
-            outlined
-          >
-            San Diego
-          </v-chip>
-          <v-chip
-            filter
-            outlined
-          >
-            Santa Barbara
-          </v-chip>
-          <v-chip
-            filter
-            outlined
-          >
-            Berkeley
-          </v-chip>
-          <v-chip
-            filter
-            outlined
-          >
-            Irvine
-          </v-chip>
-          <v-chip
-            filter
-            outlined
-          >
-            San Francisco
+            v-on:click="lsel"
+          > 
+            {{ campus }}
           </v-chip>
         </v-chip-group>
       </v-card-text>
     </v-card>
-  </div>
+
+
+    <span>resources: {{ resources }}</span>
+    <span>locations: {{ locations }}</span>
+  </v-container>
 </template>
 
 <script>
   export default {
     name:'App',
-    data () {
-      return {}
+    data: () => ({
+      campuses:['Santa Cruz', 'Los Angeles', 'Merced', 'Riverside', 'Davis', 'San Diego', 'Santa Barbara', 'Berkeley', 'Irvine', 'San Francisco'], 
+      options:['Wellness','Food','Housing','Finance','Other'],
+      resources:[], 
+      locations:[],
+      active: false,
+      ractive: false,
+    }),
+    methods: {
+      ltoggle(){
+        if (this.active == false){
+          while (this.locations.length != 0){ 
+            this.locations.pop()
+          }
+        } else {
+        var i; 
+          for (i=0; i < this.campuses.length; i++){
+            this.locations.push(i)
+          }
+        }
+      }, 
+      rtoggle(){
+        if (this.ractive == false){
+          while (this.resources.length != 0){ 
+            this.resources.pop()
+          }
+        } else {
+        var i; 
+          for (i=0; i < this.options.length; i++){
+            this.resources.push(i)
+          }
+        }
+      }, 
+      rsel(){
+        if (this.ractive == true){ 
+          this.ractive = false
+        }
+      },
+      lsel(){
+        if (this.active == true){ 
+          this.active = false
+        }
+      },
     }
   }
 
