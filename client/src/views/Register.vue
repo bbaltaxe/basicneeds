@@ -1,8 +1,9 @@
 <template>
   <v-container>
     <v-card-text>
-      <h1>Login</h1>
+      <h1>Register</h1>
     </v-card-text>
+
     <alert 
       v-if="showError" 
       :msg="alertMessage"
@@ -14,27 +15,24 @@
       required
     >
     </v-text-field>
-
     <v-text-field
       v-model="password"
       label="password"
       required
-    />
+    ></v-text-field>
 
     <v-btn
       color="success"
       class="mr-4"
       @click="onSubmit"
     >
-      Login
+      Register
     </v-btn>
   </v-container>
 </template>
 
-
 <script>
 import axios from 'axios';
-
 import Alert from '../components/Alert.vue';
 
 export default {
@@ -65,7 +63,7 @@ export default {
             },
             onSubmit(evt){
                 evt.preventDefault();
-                const path = `http://${this.apiRoot}:5000/auth/login`;
+                const path = `http://${this.apiRoot}:5000/auth/register`;
                 const payload = {
                     name: this.name,
                     password: this.password,
@@ -73,28 +71,23 @@ export default {
                 this.validate();
                 axios.post(path, payload)
                     .then((response)=> {
-                        console.log(response);
-                        if(response.data['is_redirect'] === "true"){
-                            console.log(response);
-                            msg = response.data['msg'];
-                            if(msg === "Incorrect username" || 
-                               msg === "Incorrect password"){
-                                 this.showError = true;
-                                 this.alertMessage = "Incorrect Username/Password";
-                                 this.initForm();
-                               }
-                        }
-                        else {
-                                this.showError = true;
-                                console.log(response.data['msg']);
-                                this.alertMessage = response.data["msg"];
-                        }
-                })
-                     .catch((error)=> {
+                      console.log(response)
+                      if(response.data['insert_status'] === "success"){
+                          this.$router.push('/login');
+                          
+                      } else{
+                        this.alertMessage = response.data['msg'];
+                        this.showError = true;
+                        this.initForm();
+                      }
+                    })
+                    .catch((error)=> {
                          console.log(error);
                 });
                 this.initForm();
             }
     }
 }
+
+
 </script>

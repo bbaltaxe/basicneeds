@@ -82,24 +82,22 @@ def login_post():
     state = duo_client.generate_state()
     session['state'] = state
     session['username'] = username
-    print(session['state'])
     #CLIENT session
     response_object['state'] = state
     response_object['username'] = username
 
     prompt_uri = duo_client.create_auth_url(username, state)
     response_object['redirect_url'] = prompt_uri
+    print(session)
     return jsonify(response_object)#successful validation
 
 
 #This route URL must match the redirect_uri passed to the duo client
 @app.route("/duo-callback")
 def duo_callback():
-    session['state'] = request.args.get('state')
     response_object = {
         "callback_msg": '', 
         'is_redirect': 'False', 
-        "state" : request.args.get('state'),
     }
     if request.args.get('error'):
         return "Got Error: {}".format(request.args)
@@ -110,7 +108,7 @@ def duo_callback():
     # Get authorization token to trade for 2FA
     code = request.args.get('duo_code')
 
-
+    print(session)
     if 'state' in session and 'username' in session:
         saved_state = session['state']
         username = session['username']
@@ -132,6 +130,12 @@ def duo_callback():
     response_object["callback_msg"] = "successs"
     return jsonify(response_object)
 
+@app.route("/duo-test")
+def duo_test():
+    response_object = {
+        "callback_msg": "Success",
+    }
+    return jsonify(response_object)
 
 
 
