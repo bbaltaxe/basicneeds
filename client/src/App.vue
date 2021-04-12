@@ -2,78 +2,33 @@
   <v-app id="inspire">
     <v-main>
       <router-view />
-
-      <v-navigation-drawer v-model="drawer" absolute bottom temporary>
-        <v-list nav dense>
-          <v-list-item-group v-model="group">
-            <v-list-item to="/groceries">
-              <v-list-item-title>Groceries</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item to="/mental_wellbeing">
-              <v-list-item-title>Mental Wellbeing</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item to="/housing">
-              <v-list-item-title>Housing</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item to="/about">
-              <v-list-item-title>About</v-list-item-title>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-navigation-drawer>
-
-      <v-app-bar app color="primary">
-        <v-app-bar-nav-icon @click="drawer = !drawer" />
-        <v-toolbar-title style="cursor: pointer" @click="$router.push('/')">
-          Basic Needs
-        </v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn @click="logout">
-          <span v-if="isAuthenticated" class="mr-2">{{ username }}</span>
-          <span v-else class="mr-2">Login</span>
-        </v-btn>
-      </v-app-bar>
+      <navBar />
     </v-main>
   </v-app>
 </template>
 
 <script>
+import navBar from "./components/NavBar.vue";
+
 export default {
   name: "App",
+  components: {
+    navBar,
+  },
   data() {
     return {
-      components: {
-      },
-      drawer: false,
-      group: null,
-      colors: [
-        "indigo",
-        "warning",
-        "pink darken-2",
-        "red lighten-1",
-        "deep-purple accent-4",
-      ],
-      slides: ["First", "Second", "Third", "Fourth", "Fifth"],
       isAuthenticated: this.$session.exists(),
       username: this.$session.get("username"),
     };
   },
-  watch: {
-    group() {
-      this.drawer = false;
-    },
-  },
-  methods:{
-    logout(){
-      if(this.isAuthenticated){
+  methods: {
+    logout() {
+      if (this.isAuthenticated) {
         this.$session.destroy();
         this.isAuthenticated = false;
       } else {
         this.$router.push(`/login`);
-      }
+      }ß
     },
   },
 };
