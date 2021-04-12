@@ -28,7 +28,7 @@ export default {
         this.isAuthenticated = false;
       } else {
         this.$router.push(`/login`);
-      }ß
+      }
     },
   },
 };
