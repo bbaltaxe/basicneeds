@@ -6,19 +6,18 @@
     <alert 
       v-if="showError" 
       :msg="alertMessage"
-    >
-    </alert>
+    />
     <v-text-field
       v-model="name"
       label="name"
       required
-    >
-    </v-text-field>
+    />
+
     <v-text-field
       v-model="password"
       label="password"
       required
-    ></v-text-field>
+    />
 
     <v-btn
       color="success"
@@ -29,6 +28,7 @@
     </v-btn>
   </v-container>
 </template>
+
 
 <script>
 import axios from 'axios';
