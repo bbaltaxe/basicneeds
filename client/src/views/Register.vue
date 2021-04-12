@@ -69,6 +69,7 @@ export default {
                     password: this.password,
                 };
                 this.validate();
+                console.log(payload)
                 axios.post(path, payload)
                     .then((response)=> {
                       console.log(response)
