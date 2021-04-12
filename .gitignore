@@ -3,3 +3,10 @@ node_modules/
 dist/
 venv/
 __pycache__
+.vscode
+app.egg-info/
+bin/
+include/
+lib/
+pyvenv.cfg
+var/

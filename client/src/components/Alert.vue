@@ -1,8 +1,8 @@
 <template>
-  <v-alert
-    dense
-    outlined
-    type="error"
+  <v-alert 
+    dense 
+    outlined 
+    type="error" 
     color="red"
   >
     {{ msg }}
@@ -11,8 +11,6 @@
 
 <script>
 export default {
-    props: ["msg"],
-}
-
-
+  props: ["msg"],
+};
 </script>
