@@ -8,3 +8,4 @@ app.egg-info/
 bin/
 include/
 lib/
+pyvenv.cfg
