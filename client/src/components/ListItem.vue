@@ -11,11 +11,12 @@
             :key="value"
             class="pa-2"
           >
-            {{name}}:
+            <b>
+              {{ name }}:
+            </b>
             <br>
-            {{value}}
+            {{ value }}
           </v-card>
-          
         </v-card>
       </v-col>
     </v-row>
@@ -23,17 +24,10 @@
 </template>
 <script>
 export default {
-  name: "HelloWorld",
-  data: () => ({
-    // this is probably where we need to suck things in from the database 
-    info: {
-        Location: 'UCSC', 
-        Resource: 'Food',
-        Name: "SUA Food Pantry & Lounge", 
-        Description: "Choice-based food pantry and lounge space. Fresh produce, ready-to-eat meals, and non-perishable. Snacks, coffee, tea, & microwave are available", 
-        Hours: "Mon-Sat 10am-4pm", 
-        Added: false,
-      },
-  }),
+  name: "ListItem",
+  props: {
+    info: Object, 
+    default: [],
+  },
 };
 </script>

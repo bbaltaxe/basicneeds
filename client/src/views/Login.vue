@@ -6,14 +6,12 @@
     <alert 
       v-if="showError" 
       :msg="alertMessage"
-    >
-    </alert>
+    />
     <v-text-field
       v-model="name"
       label="name"
       required
-    >
-    </v-text-field>
+    />
 
     <v-text-field
       v-model="password"

@@ -1,6 +1,6 @@
 <template>
   <v-container
-  fluid
+    fluid
   >
     <v-card
       class="mr-auto"
@@ -14,7 +14,7 @@
         <v-toolbar-title>Filter Results</v-toolbar-title>
       </v-toolbar>
 
-<!-- RESOURCE GROUP --> 
+      <!-- RESOURCE GROUP --> 
 
       <v-card-text>
         <h2 class="title mb-2">
@@ -24,27 +24,27 @@
         <v-switch
           v-model="ractive"
           label="All"
-          v-on:click="rtoggle"
+          @click="rtoggle"
         />
         
         <v-chip-group
-          column 
+          v-model="resources" 
+          column
           multiple
-          v-model="resources"
         >
           <v-chip
             v-for="option in options"
             :key="option"
             filter 
             outlined
-            v-on:click="rsel"
+            @click="rsel"
           > 
             {{ option }}
           </v-chip>
         </v-chip-group>
       </v-card-text>
 
-<!-- LOCATION GROUP --> 
+      <!-- LOCATION GROUP --> 
 
       <v-card-text>
         <h2 class="title mb-2">
@@ -54,34 +54,31 @@
         <v-switch
           v-model="active"
           label="All"
-          v-on:click="ltoggle"
+          @click="ltoggle"
         />
         
         <v-chip-group
-          column 
+          v-model="locations" 
+          column
           multiple
-          v-model="locations"
         >
           <v-chip
             v-for="campus in campuses"
             :key="campus"
             filter 
             outlined
-            v-on:click="lsel"
+            @click="lsel"
           > 
             {{ campus }}
           </v-chip>
         </v-chip-group>
       </v-card-text>
     </v-card>
-
-
-    <span>resources: {{ resources }}</span>
-    <span>locations: {{ locations }}</span>
   </v-container>
 </template>
 
 <script>
+  import { bus } from '../main'
   export default {
     name:'App',
     data: () => ({
@@ -93,6 +90,30 @@
       ractive: false,
     }),
     methods: {
+      lselected(){
+        var value = Object.values(this.locations);
+        var selected = []
+        value.sort()
+
+        for(var i=0; i<value.length; i++){
+          selected.push(this.campuses[value[i]])
+
+        }
+        return selected
+
+      },
+      rselected(){
+        var value = Object.values(this.resources);
+        var selected = []
+        value.sort()
+
+        for(var i=0; i<value.length; i++){
+          selected.push(this.options[value[i]])
+
+        }
+        return selected
+
+      },
       ltoggle(){
         if (this.active == false){
           while (this.locations.length != 0){ 
@@ -104,6 +125,7 @@
             this.locations.push(i)
           }
         }
+        bus.$emit('lsel',this.lselected())
       }, 
       rtoggle(){
         if (this.ractive == false){
@@ -116,17 +138,22 @@
             this.resources.push(i)
           }
         }
+        bus.$emit('rsel',this.rselected())
       }, 
       rsel(){
         if (this.ractive == true){ 
           this.ractive = false
         }
+        bus.$emit('rsel',this.rselected())
       },
-      lsel(){
+      lsel(){ 
         if (this.active == true){ 
           this.active = false
         }
+
+        bus.$emit('lsel',this.lselected())
       },
+
     }
   }
 
