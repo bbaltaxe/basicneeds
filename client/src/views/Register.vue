@@ -10,7 +10,7 @@
     >
     </alert>
     <v-text-field
-      v-model="name"
+      v-model="username"
       label="name"
       required
     >
@@ -41,7 +41,7 @@ export default {
     },
     data() {
         return {
-            name: "",
+            username: "",
             password:"",
             response:"",
             alertMessage: "",
@@ -51,7 +51,7 @@ export default {
     },
     methods: {
             initForm(){
-                this.name = "";
+                this.username = "";
                 this.password = "";
             }, 
             validate(){
@@ -63,9 +63,9 @@ export default {
             },
             onSubmit(evt){
                 evt.preventDefault();
-                const path = `http://${this.apiRoot}:5000/auth/register`;
+                const path = `http://${this.apiRoot}/auth/register`;
                 const payload = {
-                    name: this.name,
+                    username: this.username,
                     password: this.password,
                 };
                 this.validate();
@@ -74,7 +74,6 @@ export default {
                       console.log(response)
                       if(response.data['insert_status'] === "success"){
                           this.$router.push('/login');
-                          
                       } else{
                         this.alertMessage = response.data['msg'];
                         this.showError = true;
@@ -88,6 +87,4 @@ export default {
             }
     }
 }
-
-
 </script>

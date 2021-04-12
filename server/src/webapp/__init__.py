@@ -8,11 +8,11 @@ import click
 from flask import Flask, jsonify, request, current_app, g
 from flask.cli import with_appcontext
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
-from duo_universal.client import Client, DuoException
 
 # configuration
 DEBUG = True
+
+cors = CORS()
 
 # app init
 def create_app(test_config=None):
@@ -22,7 +22,9 @@ def create_app(test_config=None):
         DATABASE=os.path.join(app.instance_path, 'webapp.sqlite')
     )
 
-    CORS(app, resources={r'/*': {'origins': '*'}})
+
+    cors.init_app(app, resources={r'/*': {'origins': '*'}})
+
 
     if test_config is None:
         #load the instance config, if it exists, when not testing

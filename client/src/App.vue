@@ -3,21 +3,9 @@
     <v-main>
       <router-view />
 
-    
-
-      <v-navigation-drawer
-        v-model="drawer"
-        absolute
-        bottom
-        temporary
-      >
-        <v-list
-          nav
-          dense
-        >
-          <v-list-item-group
-            v-model="group"
-          >
+      <v-navigation-drawer v-model="drawer" absolute bottom temporary>
+        <v-list nav dense>
+          <v-list-item-group v-model="group">
             <v-list-item to="/groceries">
               <v-list-item-title>Groceries</v-list-item-title>
             </v-list-item>
@@ -37,92 +25,56 @@
         </v-list>
       </v-navigation-drawer>
 
-      <v-app-bar 
-        app
-        color="primary"
-      >      
+      <v-app-bar app color="primary">
         <v-app-bar-nav-icon @click="drawer = !drawer" />
-        <v-toolbar-title
-          style="cursor: pointer"
-          @click="$router.push('/')"
-        >
+        <v-toolbar-title style="cursor: pointer" @click="$router.push('/')">
           Basic Needs
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-title >2</v-toolbar-title>
-        <v-toolbar-title>1</v-toolbar-title>
+        <v-btn @click="logout">
+          <span v-if="isAuthenticated" class="mr-2">{{ username }}</span>
+          <span v-else class="mr-2">Login</span>
+        </v-btn>
       </v-app-bar>
-
-    
-      <!--
-      <v-card-text>
-        <v-carousel
-    cycle
-    height="400"
-    hide-delimiter-background
-    show-arrows-on-hover
-  >
-    <v-carousel-item
-      v-for="(slide, i) in slides"
-      :key="i"
-    >
-      <v-sheet
-        :color="colors[i]"
-        height="100%"
-      >
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <div class="display-3">
-            {{ slide }} Photo
-          </div>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel>
-      </v-card-text>
--->
     </v-main>
   </v-app>
 </template>
 
 <script>
-
-  export default {
-    name:'App',
-    data () {
-      return {
-        components:{
-        },
-        drawer: false,
-        group: null,
-        colors: [
-          'indigo',
-          'warning',
-          'pink darken-2',
-          'red lighten-1',
-          'deep-purple accent-4',
-        ],
-        slides: [
-          'First',
-          'Second',
-          'Third',
-          'Fourth',
-          'Fifth',
-        ],
-        session_user: this.$session.get(),
+export default {
+  name: "App",
+  data() {
+    return {
+      components: {
+      },
+      drawer: false,
+      group: null,
+      colors: [
+        "indigo",
+        "warning",
+        "pink darken-2",
+        "red lighten-1",
+        "deep-purple accent-4",
+      ],
+      slides: ["First", "Second", "Third", "Fourth", "Fifth"],
+      isAuthenticated: this.$session.exists(),
+      username: this.$session.get("username"),
+    };
+  },
+  watch: {
+    group() {
+      this.drawer = false;
+    },
+  },
+  methods:{
+    logout(){
+      if(this.isAuthenticated){
+        this.$session.destroy();
+        this.isAuthenticated = false;
+      } else {
+        this.$router.push(`/login`);
       }
     },
-    watch: {
-      group () {
-        this.drawer = false
-      },
-    },
-    beforeCreate: function() {
-      //this.$session.exists() ? 
-      //userlogged = true : userlogged = false;
-    }
-  }
+  },
+};
 </script>
