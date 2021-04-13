@@ -11,24 +11,10 @@
     </v-row>
     <v-carousel v-model="model">
       <v-carousel-item
-        v-for="(color, i) in colors"
-        :key="color"
-      >
-        <v-sheet
-          :color="color"
-          height="90%"
-          tile
+        v-for="(item,i) in items"
+        :key="i"
+        :src="item.src"
         >
-          <v-row
-            class="fill-height"
-            align="center"
-            justify="center"
-          >
-            <div class="display-3">
-              Slide {{ items.src }}
-            </div>
-          </v-row>
-        </v-sheet>
       </v-carousel-item>
     </v-carousel>
   </div>
@@ -64,3 +50,27 @@
     },
   }
 </script>
+
+
+
+
+<!--
+  v-for="(color, i) in colors"
+  :key="color"
+>
+  <v-sheet
+    :color="color"
+    height="90%"
+    tile
+  >
+    <v-row
+      class="fill-height"
+      align="center"
+      justify="center"
+    >
+      <div class="display-3">
+        Slide {{ items.src }}
+      </div>
+    </v-row>
+  </v-sheet>
+-->

@@ -4,11 +4,10 @@
 
 
     <v-main>
-
-      <app-NavBar></app-NavBar>
-      <router-view/>
-      
-
+      <div>
+        <app-NavBar/>
+      </div>
+        <router-view/>
     </v-main>
   </v-app>
 </template>

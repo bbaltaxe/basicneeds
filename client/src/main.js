@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import vuetify from './plugins/vuetify';
-import VueSession from 'vue-session';
+
 import router from './router';
 import 'bootstrap/dist/css/bootstrap.css';
 import NavBar from './components/NavBar.vue'
@@ -11,8 +11,8 @@ import Intake from './components/Intake.vue'
 import Popup from './components/Popup.vue'
 import AddResource from './components/AddResource.vue'
 
-Vue.config.productionTip = false;
-Vue.use(VueSession);
+Vue.config.productionTip
+
 
 Vue.component('app-NavBar',NavBar);
 Vue.component('app-Login',Login);
