@@ -6,6 +6,7 @@ First ensure you have 2 seperate terminals; one dedicated for the client and one
 Prerequisies to running server for development
 
 >   export FLASK_APP=webapp
+
 >   export FLASK_ENV=development
 
 ## Running the server in development mode
