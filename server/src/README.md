@@ -58,6 +58,6 @@ bp = Blueprint('bar', __name__)
 
 ## Database
 
-    To init or reset the database call within basicneeds/server/src/webapp
+To init or reset the database call within basicneeds/server/src/webapp
 
  >  flask init-db
