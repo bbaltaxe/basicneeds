@@ -14,7 +14,7 @@
  
 >    flask run
 
-## Register new modulle
+## Register new module
 
  1.   Within the init.py in the def create_app() import the module and call app.register_blueprint. 
 For example, if you have a folder foo/ with bar.py
