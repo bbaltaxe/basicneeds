@@ -19,6 +19,23 @@
  1.   Within the init.py in the def create_app() import the module and call app.register_blueprint. 
 For example, if you have a folder foo/ with bar.py
 
+```
+project
+│   README.md
+│   file001.txt    
+│
+└───webapp
+│   │   __init__.py
+|   |   auth.py
+│   │   db.py
+|   |   schema.sql
+|   |   ...
+│   │
+│   └───foo
+│       │   bar.py
+│   
+```
+
 \_\_init_\_.py
 ```
 from .foo import bar
