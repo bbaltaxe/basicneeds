@@ -2,17 +2,15 @@
 
 ## To run background server
 
-First ensure you have 2 seperate terminals; one dedicated for the client and one the server.
-Prerequisies to running server for development
+1. First ensure you have 2 seperate terminals; one dedicated for the client and one the server.
+2. Set up flask enviornment with the following commands
 
 >   export FLASK_APP=webapp
 
 >   export FLASK_ENV=development
 
-## Running the server in development mode
 
- Within the folder basicneeds/server/src/webapp
- Run the command
+ 3. Within the folder basicneeds/server/src/webappRun the command
  
 >    flask run
 
