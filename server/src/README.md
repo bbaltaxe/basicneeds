@@ -21,23 +21,24 @@ Prerequisies to running server for development
 For example, if you have a folder foo/ with bar.py
 
 \_\_init_\_.py
+```
+from .foo import bar
 
-> from .foo import bar
-
->  def create_app():
->  
->     ...
->     
->    app.register_blueprint(foo.bp)
->    
->    ...
->    
-
+def create_app():
+ 
+    ... 
+    app.register_blueprint(foo.bp)
+    ...
+```
  2.   In foo/bar.py add this line
 
 foo/bar.py
 
-    bp = Blueprint('bar', __name__)
+```
+...
+bp = Blueprint('bar', __name__)
+...
+```
 
 ## Database
 
