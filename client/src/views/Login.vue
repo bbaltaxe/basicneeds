@@ -7,7 +7,9 @@
     <alert v-if="showError" :msg="alertMessage"> </alert>
     <v-text-field v-model="username" label="username" required> </v-text-field>
     <v-text-field v-model="password" label="password" required> </v-text-field>
-
+    <v-btn to="/dashBoard"
+      elevation="2"
+    >Temporary login</v-btn>
 
     <v-btn color="success" class="mr-4" @click="onSubmit"> Login </v-btn>
   </v-container>
@@ -58,7 +60,7 @@ export default {
             this.$session.set("username", this.username);
             this.$emit("justLoggedIn", true);
             this.$router.push("/");
-          } 
+          }
         })
         .catch((error) => {
           console.log(error)
