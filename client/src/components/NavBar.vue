@@ -1,5 +1,6 @@
-<template> 
+<template>
   <div>
+
     <v-navigation-drawer
       v-model="drawer"
       absolute
@@ -31,9 +32,11 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar 
+    <v-app-bar
       app
-      color="primary"
+      color="blue"
+      dark
+      flat
     >
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-toolbar-title
@@ -42,6 +45,38 @@
       >
         UC-Wide Basic Needs
       </v-toolbar-title>
+      <v-tabs
+                v-model="model"
+                centered
+                slider-color="white"
+              >
+
+                <app-Login></app-Login>
+
+                <v-tab to="/housing"
+                >
+                  Housing
+                </v-tab>
+                <v-tab
+                >
+                  Financial
+                </v-tab>
+                <v-tab to="/groceries"
+                >
+                  Food
+                </v-tab>
+                <v-tab to="/mental_wellbeing"
+                >
+                  Wellbeing
+                </v-tab>
+
+              </v-tabs>
+              <v-btn icon>
+                    <v-icon>mdi-magnify</v-icon>
+              </v-btn>
+              <v-btn to="/login"
+                elevation="2"
+              >Login</v-btn>
     </v-app-bar>
   </div>
 </template>
@@ -50,33 +85,33 @@
 
 
 
-  export default {
-    components:{
+export default {
+  components:{
+  },
+  data () {
+    return {
+      drawer: false,
+      group: null,
+      colors: [
+        'indigo',
+        'warning',
+        'pink darken-2',
+        'red lighten-1',
+        'deep-purple accent-4',
+      ],
+      slides: [
+        'First',
+        'Second',
+        'Third',
+        'Fourth',
+        'Fifth',
+      ],
+    }
+  },
+  watch: {
+    group () {
+      this.drawer = false
     },
-    data () {
-      return {
-        drawer: false,
-        group: null,
-        colors: [
-          'indigo',
-          'warning',
-          'pink darken-2',
-          'red lighten-1',
-          'deep-purple accent-4',
-        ],
-        slides: [
-          'First',
-          'Second',
-          'Third',
-          'Fourth',
-          'Fifth',
-        ],
-      }
-    },
-    watch: {
-      group () {
-        this.drawer = false
-      },
-    },
-  }
+  },
+}
 </script>

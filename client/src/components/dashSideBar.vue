@@ -7,7 +7,7 @@
       >
         <v-list>
           <v-list-item-group v-model="model">
-            <v-list-item 
+            <v-list-item
               v-for="(item, i) in items"
               :key="i"
             >
