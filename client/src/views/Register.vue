@@ -4,8 +4,8 @@
       <h1>Register</h1>
     </v-card-text>
 
-    <alert 
-      v-if="showError" 
+    <alert
+      v-if="showError"
       :msg="alertMessage"
     />
     <v-text-field
@@ -26,6 +26,9 @@
     >
       Register
     </v-btn>
+    <v-btn to="/login"
+      elevation="2"
+    >Back to login</v-btn>
   </v-container>
 </template>
 
@@ -51,13 +54,13 @@ export default {
             initForm(){
                 this.username = "";
                 this.password = "";
-            }, 
+            },
             validate(){
                 if(this.name === "" || this.password === ""){
                     this.showError = true;
                     this.alertMessage = "Please enter username and/or password";
                     this.initForm();
-                } 
+                }
             },
             onSubmit(evt){
                 evt.preventDefault();

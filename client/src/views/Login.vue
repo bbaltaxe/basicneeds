@@ -9,7 +9,10 @@
     <v-text-field v-model="password" label="password" required> </v-text-field>
     <v-btn to="/dashBoard"
       elevation="2"
-    >Temporary login</v-btn>
+    >Temporary login</v-btn> 
+    <v-btn to="/register"
+      elevation="2"
+    >Register</v-btn>
 
     <v-btn color="success" class="mr-4" @click="onSubmit"> Login </v-btn>
   </v-container>

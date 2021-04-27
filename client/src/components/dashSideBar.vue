@@ -5,13 +5,13 @@
         class="mx-auto"
         max-width="500"
       >
-        <v-list>
-          <v-list-item-group v-model="model">
+        <v-list >
+          <v-list-item-group v-model="model" >
             <v-list-item
               v-for="(item, i) in items"
               :key="i"
             >
-              <v-list-item-icon>
+              <v-list-item-icon >
                 <v-icon v-text="item.icon"></v-icon>
               </v-list-item-icon >
 
@@ -31,22 +31,19 @@
     data: () => ({
       items: [
         {
-          icon: 'mdi-star',
-          text: 'My Resources',
+          icon: 'mdi-square',
+          text: 'My DashBoard',
           endpoint:'/login',
         },
         {
           icon: 'mdi-star',
-          text: 'Miscellaneous ',
+          text: 'My Resources',
         },
         {
-          icon: 'mdi-send',
-          text: 'Calendar',
+          icon: 'mdi-plus',
+          text: 'Add Resources',
         },
-        {
-          icon: 'mdi-email-open',
-          text: 'Drafts',
-        },
+
       ],
       model: 1,
     }),

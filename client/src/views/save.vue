@@ -1,3 +1,4 @@
+
 <template>
   <v-card-text>
     <div class="dashBoard">
@@ -13,7 +14,6 @@
           <!--  -->
         </v-sheet>
       </v-col>
-      <p>Welcome to your DASHBOARD</p>
     </div>
   </v-card-text>
 </template>
