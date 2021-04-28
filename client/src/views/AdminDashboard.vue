@@ -114,7 +114,6 @@
                   dark
                 > 
                   <v-card-text> announcement content can go here </v-card-text>
-                  
                 </v-card>
               </v-col>
             </v-row>

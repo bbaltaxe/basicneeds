@@ -99,6 +99,7 @@
           selected.push(this.campuses[value[i]])
 
         }
+
         return selected
 
       },
@@ -144,14 +145,18 @@
         if (this.ractive == true){ 
           this.ractive = false
         }
-        bus.$emit('rsel',this.rselected())
+        this.$nextTick(() => {
+          bus.$emit('rsel',this.rselected())
+        })
       },
       lsel(){ 
         if (this.active == true){ 
           this.active = false
         }
 
-        bus.$emit('lsel',this.lselected())
+        this.$nextTick(() => {
+          bus.$emit('lsel',this.lselected())
+        })
       },
 
     }

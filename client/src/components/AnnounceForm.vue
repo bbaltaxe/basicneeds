@@ -9,7 +9,7 @@
         <v-btn
           color="green"
           dark
-          elevation='0'
+          elevation="0"
           v-bind="attrs"
           v-on="on"
         >
