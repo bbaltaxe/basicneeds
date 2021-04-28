@@ -1,27 +1,27 @@
-
 <template>
-  <v-card-text>
-    <div class="dashBoard">
-      <v-col
-        cols="12"
-        sm="2"
+  <div id="app">
+    <v-app id="inspire">
+      <v-card
+        class="mx-auto"
+        max-width="500"
       >
-        <v-sheet
-          rounded="lg"
-          min-height="268"
-          <dashSideBar/>
-        >
-          <!--  -->
-        </v-sheet>
-      </v-col>
-    </div>
-  </v-card-text>
+        <v-list >
+          <v-list-item-group v-model="model" >
+            <v-list-item
+              v-for="(item, i) in items"
+              :key="i"
+            >
+              <v-list-item-icon >
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-item-icon >
+
+              <v-list-item-content >
+                <v-list-item-title v-text="item.text"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-card>
+    </v-app>
+  </div>
 </template>
-
-<script>
-  import dashSideBar from '../components/dashSideBar.vue'
-  export default {
-  components: {dashSideBar}
-  }
-
-</script>

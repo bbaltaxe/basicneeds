@@ -13,7 +13,7 @@
           <!--  -->
         </v-sheet>
       </v-col>
-      <p>Welcome to your DASHBOARD</p>
+
     </div>
   </v-card-text>
 </template>

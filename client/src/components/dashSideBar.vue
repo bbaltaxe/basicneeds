@@ -10,6 +10,7 @@
             <v-list-item
               v-for="(item, i) in items"
               :key="i"
+              :to="item.endpoint"
             >
               <v-list-item-icon >
                 <v-icon v-text="item.icon"></v-icon>
@@ -33,15 +34,17 @@
         {
           icon: 'mdi-square',
           text: 'My DashBoard',
-          endpoint:'/login',
+          endpoint:'/dashBoard',
         },
         {
           icon: 'mdi-star',
           text: 'My Resources',
+          endpoint:'/myResources'
         },
         {
           icon: 'mdi-plus',
           text: 'Add Resources',
+          endpoint:'/add'
         },
 
       ],
