@@ -5,7 +5,7 @@
       fluid
     >
       <v-toolbar
-        color="teal"
+        color="primary"
         dark
         flat
       >
@@ -91,17 +91,19 @@
                   elevation="2"
                   color="green"
                 >
-                  add 
+                  <AnnounceForm />
                 </v-btn>
                 <v-btn
                   elevation="2"
                   color="orange"
+                  dark
                 >
                   edit
                 </v-btn>
                 <v-btn
                   elevation="2"
                   color="red"
+                  dark
                 >
                   remove
                 </v-btn>
@@ -112,6 +114,7 @@
                   dark
                 > 
                   <v-card-text> announcement content can go here </v-card-text>
+                  
                 </v-card>
               </v-col>
             </v-row>
@@ -126,8 +129,9 @@
   import ServiceFilter from '../components/ServiceFilter.vue'
   import ResourceTable from '../components/ResourceTable.vue'
   import SortBar from '../components/SortBar.vue'
+  import AnnounceForm from '../components/AnnounceForm.vue'
   export default {
-    components: {ServiceFilter,ResourceTable,SortBar},
+    components: {ServiceFilter,ResourceTable,SortBar,AnnounceForm},
     data () {
       return {
         tab: null,
