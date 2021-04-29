@@ -53,14 +53,9 @@
                 <v-btn
                   elevation="2"
                   color="orange"
+                  @click="remove"
                 >
-                  edit
-                </v-btn>
-                <v-btn
-                  elevation="2"
-                  color="red"
-                >
-                  remove
+                  edit / remove
                 </v-btn>
                 <v-card 
                   color="grey"
@@ -68,6 +63,7 @@
                 > 
                   <SortBar />
                   <ResourceTable />
+                  {{selectedResourceInfo}}
                 </v-card>
               </v-col>
             </v-row>
@@ -98,14 +94,7 @@
                   color="orange"
                   dark
                 >
-                  edit
-                </v-btn>
-                <v-btn
-                  elevation="2"
-                  color="red"
-                  dark
-                >
-                  remove
+                  edit / remove
                 </v-btn>
                 <v-card 
                   color="grey"
@@ -125,16 +114,39 @@
 </template> 
 
 <script>
+  import { bus } from '../main'
   import ServiceFilter from '../components/ServiceFilter.vue'
   import ResourceTable from '../components/ResourceTable.vue'
   import SortBar from '../components/SortBar.vue'
   import AnnounceForm from '../components/AnnounceForm.vue'
+
   export default {
     components: {ServiceFilter,ResourceTable,SortBar,AnnounceForm},
     data () {
       return {
         tab: null,
+        showRemove: false,
+        selectedResource: false,
+        selectedResourceInfo: Object,
       }
     },
+    created (){
+      bus.$on('editResource', (data) => {
+        this.selectedResourceInfo = data;
+        this.selectedResource = true;
+      })
+    }, 
+    methods: {
+      remove(){
+        if(this.showRemove == false){
+          this.showRemove = true
+        }
+        else {
+          this.showRemove = false
+        }
+        bus.$emit('remove',this.showRemove)
+      }
+
+    }
   }
 </script>
