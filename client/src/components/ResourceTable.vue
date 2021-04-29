@@ -40,7 +40,9 @@
         Added: false,
       },
   	}),
-  	
+    methods: {
+        
+    },
   	created (){
 	    bus.$on('lsel', (data) => {
 	      this.selectedCampuses = data;

@@ -8,6 +8,7 @@ import MentalWellbeing from './views/MentalWellbeing.vue'
 import Login from './views/Login.vue'
 import Add from './views/Add.vue'
 import Register from './views/Register.vue'
+import Admin from './views/Admin.vue'
 
 Vue.use(Router)
 
@@ -55,6 +56,11 @@ export default new Router({
 			path: '/register',
 			name: 'register',
 			component: Register
+		},
+		{
+			path: '/admin',
+			name: 'admin',
+			component: Admin
 		}
 
 	]

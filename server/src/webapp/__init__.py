@@ -9,6 +9,7 @@ from flask import Flask, jsonify, request, current_app, g
 from flask.cli import with_appcontext
 from flask_cors import CORS
 
+
 # configuration
 DEBUG = True
 
@@ -19,7 +20,8 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'webapp.sqlite')
+        DATABASE=os.path.join(app.instance_path, 'basicneeds.sqlite'),
+
     )
 
 
@@ -50,8 +52,8 @@ def create_app(test_config=None):
     from .static_pages import campus 
     app.register_blueprint(campus.bp)
 
+    from .services import admin
+    app.register_blueprint(admin.bp)
+
     return app
 
-
-if __name__ == '__main__':
-    app.run()
