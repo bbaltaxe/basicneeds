@@ -9,7 +9,6 @@
       :info="otherinfo"
     />
 
-    {{ selectedCampuses }}
   </div>
 </template>
 
@@ -20,6 +19,7 @@
   export default {
     components: {ListItem}, 
 	data: () => ({
+  
 		selectedCampuses: [],
 		selectedResources: [],
     // this is probably where we need to suck things in from the database 
@@ -44,11 +44,9 @@
   	created (){
 	    bus.$on('lsel', (data) => {
 	      this.selectedCampuses = data;
-
 	    })
 	    bus.$on('rsel', (data) => {
 	      this.selectedResources = data;
-
 	    })
   	}
   }
