@@ -3,16 +3,27 @@
 ## To run background server
 
 1. First ensure you have 2 seperate terminals; one dedicated for the client and one the server.
-2. Set up flask enviornment with the following commands
+2. Navigate to the mgflask folder
 
->   export FLASK_APP=webapp
+    ```sh
+    $ cd basicneeds/server/
+    ```
 
->   export FLASK_ENV=development
+3. Create and activate Python Virtual Environment
 
+    ```sh
+    $ python3 -m venv env
+    $ source env/bin/activate
+    (env)$ pip install -r requirements.txt
+    ```
 
- 3. Within the folder basicneeds/server/src/webappRun the command
- 
->    flask run
+4. Start up flask environment with the following commands
+
+    ```sh
+    (env)$ export FLASK_APP=webapp
+    (env)$ export FLASK_ENV=development
+    (env)$ flask run
+    ```
 
 ## Register new module
 
@@ -20,20 +31,22 @@
 For example, if you have a folder foo/ with bar.py
 
 ```
-project
-│   README.md
-│   file001.txt    
-│
-└───webapp
-│   │   __init__.py
-|   |   auth.py
-│   │   db.py
-|   |   schema.sql
-|   |   ...
-│   │
-│   └───foo
-│       │   bar.py
-│   
+src/
+├── README.md
+├── instance
+│   └── basicneeds.sqlite
+└── webapp
+    ├── __init__.py
+    ├── auth.py
+    ├── db.py
+    ├── metadata.txt
+    ├── schema.sql
+    ├── services
+    │   └── admin.py
+    └── static_pages
+        └── campus.py
+    |  ...
+
 ```
 
 \_\_init_\_.py
@@ -58,6 +71,6 @@ bp = Blueprint('bar', __name__)
 
 ## Database
 
-    To init or reset the database call within basicneeds/server/src/webapp
+To init or reset the database call within basicneeds/server/src/webapp
 
  >  flask init-db
