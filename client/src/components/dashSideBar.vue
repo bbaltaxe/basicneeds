@@ -21,7 +21,7 @@
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
-        </v-list>
+        </v-list> 
       </v-card>
     </v-app>
   </div>
