@@ -51,10 +51,15 @@ def get_service():
         categories_selected = post_data['categories']
         print(campuses_selected)
         db_select = 'SELECT * FROM SERVICE WHERE location = ?', ()
-        
-
-
 
     return jsonify(response_object), 401
 
 
+@bp.route('/addannouncement', methods=(['POST']))
+def add_announcement():
+    response_object = {"add_announcement": "fail"}
+    if request.method == 'POST':
+        post_data = request.get_json()
+        print(post_data)
+
+    return jsonify(response_object), 401

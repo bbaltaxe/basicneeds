@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS service;
 DROP TABLE IF EXISTS campus;
 DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS announcements;
 
 CREATE TABLE user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,17 +20,18 @@ CREATE TABLE service(
     hours TEXT
 );
 
+
 CREATE TABLE announcements(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT UNIQUE NOT NULL,
     url_img TEXT,
-    alt_text TEXT,
+    alt_text TEXT
     resource TEXT NOT NULL REFERENCES category(id), 
-    location TEXT NOT NULL REFERENCES campus(name),
-    post_date DATE NOT NULL,
-    remove_date DATE, 
-    description TEXT,
-)
+    /*location TEXT NOT NULL REFERENCES campus(name),*/
+    post_date DATE NOT NULL, 
+    remove_date DATE,  
+    description TEXT
+);
 
 
 CREATE TABLE category(
