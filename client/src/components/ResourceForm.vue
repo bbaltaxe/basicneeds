@@ -36,6 +36,7 @@
             full-width
             single-line
             required
+            v-model="description"
           />
 
           <v-text-field 
@@ -49,6 +50,7 @@
             Relevant Resources*
 
             <v-chip-group
+              v-model="resources"
               column
               multiple
             >
@@ -75,7 +77,6 @@
                 :key="campus"
                 filter 
                 outlined
-                @click="lsel"
               > 
                 {{ campus }}
               </v-chip>
@@ -101,7 +102,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false"
+            @click="submitResource"
           >
             Save
           </v-btn>
@@ -122,13 +123,57 @@
       email: "",
       campuses:['Santa Cruz', 'Los Angeles', 'Merced', 'Riverside', 'Davis', 'San Diego', 'Santa Barbara', 'Berkeley', 'Irvine', 'San Francisco'], 
       options:['Wellness','Food','Housing','Finance','Other'],
+      resources:[], 
+      locations:[],
     }),
     methods: {
+      lselected(){
+        var value = Object.values(this.locations);
+        var selected = []
+        value.sort()
+
+        for(var i=0; i<value.length; i++){
+          selected.push(this.campuses[value[i]])
+
+        }
+
+        return selected
+
+      },
+      rselected(){
+        var value = Object.values(this.resources);
+        var selected = []
+        value.sort()
+
+        for(var i=0; i<value.length; i++){
+          selected.push(this.options[value[i]])
+
+        }
+        return selected
+
+      },
       initForm() {
         this.name = "";
         this.description = "";
         this.hours = "";
         this.email = "";
+        this.resources = []; 
+        this.locations = [];
+        return 
+      },
+      submitResource(){
+        var payload = {
+          name: this.name,
+          description: this.description,
+          hours: this.hours,
+          email: this.email,
+          campuses: this.lselected(),
+          resources: this.rselected(),
+        } 
+        //PUSH TO DB HERE
+        console.log(payload)
+        this.dialog=false
+        return
       },
     }, 
   }
