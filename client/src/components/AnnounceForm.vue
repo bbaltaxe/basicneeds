@@ -26,11 +26,13 @@
         <v-card-text>
           <v-text-field
             label="Title*"
+            v-model="title"
             required
           />
 
           <v-textarea
             label="Description*"
+            v-model="description"
             counter
             maxlength="120"
             full-width
@@ -43,9 +45,9 @@
               cols="12"
               lg="6"
             >
-              <v-file-input
-                truncate-length="15"
-                label="Image or flyer"
+              <v-text-field
+                v-model="urlLink"
+                label="Url to image"
               />
             </v-col>
             <v-col
@@ -53,6 +55,7 @@
               lg="6"
             >
               <v-text-field
+                v-model="altText"
                 label="Alt text for image"
               />
             </v-col>
@@ -161,6 +164,7 @@
             <v-chip-group
               column
               multiple
+              v-model="serviceOptions"
             >
               <v-chip
                 v-for="option in options"
@@ -176,16 +180,15 @@
           <v-card-text>
             Relevant Campuses*
             <v-chip-group
-              v-model="locations" 
               column
               multiple
+              v-model="locations"
             >
               <v-chip
                 v-for="campus in campuses"
                 :key="campus"
                 filter 
                 outlined
-                @click="lsel"
               > 
                 {{ campus }}
               </v-chip>
@@ -207,7 +210,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false"
+            @click="dialog = false & passForm()"
           >
             Save
           </v-btn>
@@ -227,7 +230,58 @@
       menu: false,
       menu2: false,
       campuses:['Santa Cruz', 'Los Angeles', 'Merced', 'Riverside', 'Davis', 'San Diego', 'Santa Barbara', 'Berkeley', 'Irvine', 'San Francisco'], 
+      locations:[],
       options:['Wellness','Food','Housing','Finance','Other'],
+      serviceOptions: [],
+      title: "",
+      description:"",
+      urlLink:"",
+      altText:"",
     }),
+    methods: {
+      passForm(){
+        var payload = {
+          title: this.title,
+          description: this.description,
+          urlLink: this.urlLink,
+          altText: this.altText,
+          campus: this.lselected(),
+          option: this.rselected(),
+          postDate: this.date,
+          removeDate: this.date2,
+        }
+        this.$emit("submitAnnouncement", payload)
+        
+      },
+       lselected(){
+        var value = Object.values(this.locations);
+        var selected = []
+        value.sort()
+
+        for(var i=0; i<value.length; i++){
+          selected.push(this.campuses[value[i]])
+
+        }
+
+        return selected
+
+      },
+      rselected(){
+        var value = Object.values(this.serviceOptions);
+        var selected = []
+        value.sort()
+
+        for(var i=0; i<value.length; i++){
+          selected.push(this.options[value[i]])
+
+        }
+        return selected
+
+      },
+    },
+    emits: [
+      "submitAnnouncement",
+    ],
+    
   }
 </script>
