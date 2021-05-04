@@ -120,6 +120,7 @@
         <v-tab-item>
 
         <!------------- CHECK ---------------->
+        <v-card-text><h3>This is what your resource will look like:</h3></v-card-text>
         <ListItem :info="getPayload()"/>
           <v-card-actions>
           <v-spacer />
@@ -264,7 +265,7 @@
         //JESSY YOU CAN ADD DB STUFF HERE 
         // post getPayload()
 
-        
+
       }
     }, 
   }
