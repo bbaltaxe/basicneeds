@@ -23,6 +23,9 @@
         </v-card-title>
 
 
+      <v-tabs-items v-model="tab">
+        <v-tab-item>
+        <!------------- FORM ---------------->
         <v-card-text>
           <v-text-field
             label="Title*"
@@ -44,6 +47,13 @@
             v-model="hours" 
             label="Hours" 
             hint="Ex: MWF 3pm-5pm, TTh 11am-2pm"
+            required 
+          />
+
+          <v-text-field 
+            v-model="address" 
+            label="Location" 
+            hint="Ex: Student Health Center, Room 112"
             required 
           />
 
@@ -93,18 +103,52 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false"
+            @click="dialog = false && initForm"
           >
             Cancel
           </v-btn>
           <v-btn
             color="blue darken-1"
             text
-            @click="submitResource"
+            @click="tab = 1"
           >
             Save
           </v-btn>
-        </v-card-actions>
+        </v-card-actions>  
+        </v-tab-item>
+
+        <v-tab-item>
+
+        <!------------- CHECK ---------------->
+        <ListItem :info="getPayload()"/>
+          <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="dialog = false && initForm"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="tab = 0"
+          >
+            Edit
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="submitResource()"
+          >
+            Submit
+          </v-btn>
+        </v-card-actions>  
+
+        </v-tab-item>
+
+      </v-tabs-items>
       </v-card>
     </v-dialog>
   </div>
@@ -113,20 +157,33 @@
 
 <script>
   import { bus } from '../main'
+  import ListItem from './ListItem.vue'
 
   export default {
+    components: {ListItem},
     data: () => ({
+      //popup control
       dialog: false,
+
+      //payload
       name: "",
       description: "",
       hours: "",
       email: "",
-      campuses:['Santa Cruz', 'Los Angeles', 'Merced', 'Riverside', 'Davis', 'San Diego', 'Santa Barbara', 'Berkeley', 'Irvine', 'San Francisco'], 
-      options:['Wellness','Food','Housing','Finance','Other'],
       resources:[], 
       locations:[],
+      address: "",
+
+      //data for populating chips
+      campuses:['Santa Cruz', 'Los Angeles', 'Merced', 'Riverside', 'Davis', 'San Diego', 'Santa Barbara', 'Berkeley', 'Irvine', 'San Francisco'], 
+      options:['Wellness','Food','Housing','Finance','Other'],
+
+      //data for editing resources
       selectedResource: false,
       selectedResourceInfo: Object,
+
+      //data for check screen
+      tab:0,
     }),
     created (){
       bus.$on('editResource', (data) => {
@@ -164,6 +221,7 @@
       },
       initForm() {
         //auto fill if editing a resource 
+        this.tab = 0;
         if (this.selectedResource == true) {
           var selected = this.selectedResourceInfo
           this.name = selected.Name
@@ -172,6 +230,7 @@
           this.email = selected.Contact;
           this.resources = this.getChipValues(selected.Resource, this.options); 
           this.locations = this.getChipValues(selected.Campus,this.campuses);
+          this.address = selected.Location;
         } else {
         
           this.name = "";
@@ -180,27 +239,33 @@
           this.email = "";
           this.resources = []; 
           this.locations = [];
+          this.address = [];
         }
         
       },
+      getPayload(){
+         var payload = {
+          Campus: this.selectedChips(this.locations, this.campuses),
+          Location: this.address,
+          Resource: this.selectedChips(this.resources,this.options),
+          Name: this.name,
+          Description: this.description,
+          Hours: this.hours,
+          Contact: this.email,
+        }
+        return payload
+      },
       submitResource(){
-        var payload = {
-          name: this.name,
-          description: this.description,
-          hours: this.hours,
-          email: this.email,
-          campuses: this.selectedChips(this.locations, this.campuses),
-          resources: this.selectedChips(this.resources,this.options),
-        } 
-        //PUSH TO DB HERE
-        console.log("_____PAYLOAD_____")
-        console.log(payload)
-        console.log("_________________")
         this.selectedResource=false;
         this.initForm();
-        this.dialog=false;
-        return
-      },
+        this.dialog=false
+
+
+        //JESSY YOU CAN ADD DB STUFF HERE 
+        // post getPayload()
+
+        
+      }
     }, 
   }
 </script>

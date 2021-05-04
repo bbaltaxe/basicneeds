@@ -16,7 +16,7 @@
             align-with-title
           >
             <v-tabs-slider color="white" />
-
+            {{tab}}
             <v-tab>Resources</v-tab>
             <v-tab>Announcements</v-tab>
           </v-tabs>

@@ -2,7 +2,6 @@
   <v-container>
     <v-row class="text-center">
       <v-col cols="12">
-        {{selected}}
         <v-card
           class="d-flex mb-6"
           height="100"
@@ -51,7 +50,6 @@
     data: () => ({
       remove: false,
       absolute: true,
-      selected: false,
     }),
     created (){
       bus.$on('remove', (data) => {
@@ -60,15 +58,10 @@
     }, 
     methods: {
       adminSelect(){
-        if (this.selected == false){
-          this.selected = true
           this.$nextTick(() => {
             bus.$emit('editResource',this.info)
           })
-          
-        } else {
-          this.selected = false
-        }
+
       },
       directPrint(x){
         if (typeof x == 'string' || typeof x == 'boolean') return true
