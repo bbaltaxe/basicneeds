@@ -48,7 +48,7 @@
                   elevation="2"
                   color="green"
                 >
-                  add 
+                  <ResourceForm/>
                 </v-btn>
                 <v-btn
                   elevation="2"
@@ -63,7 +63,7 @@
                 > 
                   <SortBar />
                   <ResourceTable />
-                  {{selectedResourceInfo}}
+
                 </v-card>
               </v-col>
             </v-row>
@@ -119,9 +119,10 @@
   import ResourceTable from '../components/ResourceTable.vue'
   import SortBar from '../components/SortBar.vue'
   import AnnounceForm from '../components/AnnounceForm.vue'
+  import ResourceForm from '../components/ResourceForm.vue'
 
   export default {
-    components: {ServiceFilter,ResourceTable,SortBar,AnnounceForm},
+    components: {ServiceFilter,ResourceTable,SortBar,AnnounceForm,ResourceForm},
     data () {
       return {
         tab: null,
