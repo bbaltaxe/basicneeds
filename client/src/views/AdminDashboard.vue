@@ -87,7 +87,10 @@
                   elevation="2"
                   color="green"
                 >
-                  <AnnounceForm />
+                  <AnnounceForm
+                    @submitAnnouncement = "addAnnouncement($event)"
+                  
+                  />
                 </v-btn>
                 <v-btn
                   elevation="2"
@@ -114,6 +117,8 @@
 </template> 
 
 <script>
+
+import axios from "axios";
   import { bus } from '../main'
   import ServiceFilter from '../components/ServiceFilter.vue'
   import ResourceTable from '../components/ResourceTable.vue'
@@ -128,6 +133,7 @@
         showRemove: false,
         selectedResource: false,
         selectedResourceInfo: Object,
+        apiRoot: process.env.VUE_APP_API_ROOT,
       }
     },
     created (){
@@ -145,6 +151,25 @@
           this.showRemove = false
         }
         bus.$emit('remove',this.showRemove)
+      },
+      addAnnouncement(payload){
+        console.log(payload);
+        /*
+        axios
+        .post(`http://${this.apiRoot}/admin/addannouncement`, payload)
+        .then((response) => {
+          console.log(response.status);
+          if (response.status === 200) {
+
+          } 
+        })
+        .catch((error) => {
+          console.log(error)
+          this.showError = true;
+          this.alertMessage = "Invalid Credentials"
+          //this.alertMessage = error.data["msg"];
+        });
+  */
       }
 
     }

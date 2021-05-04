@@ -4,10 +4,7 @@
     <v-container>
       <v-row>
         <v-text-field v-model="name" label="name" required />
-        <v-col
-          cols="auto"
-          md="4">
-        </v-col>
+        <v-col cols="auto" md="4"> </v-col>
         <v-text-field v-model="email" label="email" required />
       </v-row>
     </v-container>
@@ -34,16 +31,24 @@
       return-object
     >
     </v-select>
-    <v-text-field 
-      v-model="hours" 
-      label="hours" 
-      required 
-    />
-    <v-text-field 
-      v-model="description" 
-      label="description" 
-      required 
-    />
+    <v-container class="px-0" fluid>
+       <v-chip-group
+              column
+              multiple
+              v-model="dayOptions"
+            >
+              <v-chip
+                v-for="day in days"
+                :key="day"
+                filter 
+                outlined
+              > 
+                {{ day }}
+              </v-chip>
+            </v-chip-group>
+    </v-container>
+    <v-text-field v-model="hours" label="hours" required />
+    <v-text-field v-model="description" label="description" required />
     <v-btn color="success" class="mr-4" @click="onSubmit">
       Register Service
     </v-btn>
@@ -62,6 +67,16 @@ export default {
     return {
       name: "",
       email: "",
+      days: [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
+      dayOptions: "",
       campuses: [
         { campus: "UCR" },
         { campus: "UCB" },
