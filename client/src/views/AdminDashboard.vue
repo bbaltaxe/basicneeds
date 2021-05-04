@@ -87,10 +87,7 @@
                   elevation="2"
                   color="green"
                 >
-                  <AnnounceForm
-                    @submitAnnouncement = "addAnnouncement($event)"
-                  
-                  />
+                  <AnnounceForm/>
                 </v-btn>
                 <v-btn
                   elevation="2"
@@ -137,12 +134,14 @@ import axios from "axios";
         apiRoot: process.env.VUE_APP_API_ROOT,
       }
     },
+    /*
     created (){
       bus.$on('editResource', (data) => {
         this.selectedResourceInfo = data;
         this.selectedResource = true;
       })
     }, 
+    */
     methods: {
       remove(){
         if(this.showRemove == false){
@@ -153,25 +152,6 @@ import axios from "axios";
         }
         bus.$emit('remove',this.showRemove)
       },
-      addAnnouncement(payload){
-        console.log(payload);
-        /*
-        axios
-        .post(`http://${this.apiRoot}/admin/addannouncement`, payload)
-        .then((response) => {
-          console.log(response.status);
-          if (response.status === 200) {
-
-          } 
-        })
-        .catch((error) => {
-          console.log(error)
-          this.showError = true;
-          this.alertMessage = "Invalid Credentials"
-          //this.alertMessage = error.data["msg"];
-        });
-      */
-      }
 
     }
   }

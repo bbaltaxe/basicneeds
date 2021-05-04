@@ -10,15 +10,24 @@
         >
           <v-card
             v-for="(value,name) in info"
-            :key="value"
+            :key="name"
             class="pa-2"
+            flat
           >
             <b>
               {{ name }}:
             </b>
             <br>
+            <div v-if="directPrint(value)">
             {{ value }}
-
+            </div>
+            <div 
+            v-else 
+            v-for="item in value"
+            :key="item"
+            > 
+            {{item}}
+            </div>
           </v-card>
             <v-overlay
               :absolute="absolute"
@@ -60,7 +69,11 @@
         } else {
           this.selected = false
         }
-      }
+      },
+      directPrint(x){
+        if (typeof x == 'string' || typeof x == 'boolean') return true
+        else return false
+      },
     },
   };
 

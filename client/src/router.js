@@ -8,7 +8,6 @@ import MentalWellbeing from './views/MentalWellbeing.vue'
 import Login from './views/Login.vue'
 import Add from './views/Add.vue'
 import Register from './views/Register.vue'
-import Admin from './views/Admin.vue'
 import AdminDashboard from './views/AdminDashboard.vue'
 
 
@@ -60,12 +59,6 @@ export default new Router({
 			component: Register
 
 		},
-		{
-			path: '/admin',
-			name: 'admin',
-			component: Admin
-
-		}, 
 		{
 			path: '/admin-dashboard',
 			name: 'admin-dashboard',

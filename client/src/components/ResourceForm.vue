@@ -18,7 +18,8 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Add Resource</span>
+          <span class="headline" v-if="selectedResource">Edit Resource</span>
+          <span class="headline" v-else>Add Resource</span>
         </v-card-title>
 
 
@@ -87,9 +88,6 @@
 
         </v-card-text>
 
-        
-
-
         <v-card-actions>
           <v-spacer />
           <v-btn
@@ -114,6 +112,8 @@
 
 
 <script>
+  import { bus } from '../main'
+
   export default {
     data: () => ({
       dialog: false,
@@ -125,41 +125,63 @@
       options:['Wellness','Food','Housing','Finance','Other'],
       resources:[], 
       locations:[],
+      selectedResource: false,
+      selectedResourceInfo: Object,
     }),
+    created (){
+      bus.$on('editResource', (data) => {
+        this.selectedResourceInfo = data;
+        this.selectedResource = true;
+        this.initForm();
+        this.dialog = true
+      })
+    }, 
     methods: {
-      lselected(){
-        var value = Object.values(this.locations);
+      selectedChips(rawChipValues,nameList){
+        console.log(rawChipValues)
+        var value = Object.values(rawChipValues);
         var selected = []
         value.sort()
-
+        //matching values to locations
         for(var i=0; i<value.length; i++){
-          selected.push(this.campuses[value[i]])
+          selected.push(nameList[value[i]])
 
         }
 
         return selected
 
       },
-      rselected(){
-        var value = Object.values(this.resources);
-        var selected = []
-        value.sort()
+      getChipValues(selected,nameList){
+        var rawChipValues = []
+        for (var i=0; i<selected.length; i++){
 
-        for(var i=0; i<value.length; i++){
-          selected.push(this.options[value[i]])
+          rawChipValues.push(nameList.indexOf(selected[i]));
 
         }
-        return selected
-
+        console.log("---compare:---")
+        console.log(rawChipValues)
+        return rawChipValues
       },
       initForm() {
-        this.name = "";
-        this.description = "";
-        this.hours = "";
-        this.email = "";
-        this.resources = []; 
-        this.locations = [];
-        return 
+        //auto fill if editing a resource 
+        if (this.selectedResource == true) {
+          var selected = this.selectedResourceInfo
+          this.name = selected.Name
+          this.description = selected.Description;
+          this.hours = selected.Hours;
+          this.email = selected.Contact;
+          this.resources = this.getChipValues(selected.Resource, this.options); 
+          this.locations = this.getChipValues(selected.Campus,this.campuses);
+        } else {
+        
+          this.name = "";
+          this.description = "";
+          this.hours = "";
+          this.email = "";
+          this.resources = []; 
+          this.locations = [];
+        }
+        
       },
       submitResource(){
         var payload = {
@@ -167,12 +189,16 @@
           description: this.description,
           hours: this.hours,
           email: this.email,
-          campuses: this.lselected(),
-          resources: this.rselected(),
+          campuses: this.selectedChips(this.locations, this.campuses),
+          resources: this.selectedChips(this.resources,this.options),
         } 
         //PUSH TO DB HERE
+        console.log("_____PAYLOAD_____")
         console.log(payload)
-        this.dialog=false
+        console.log("_________________")
+        this.selectedResource=false;
+        this.initForm();
+        this.dialog=false;
         return
       },
     }, 

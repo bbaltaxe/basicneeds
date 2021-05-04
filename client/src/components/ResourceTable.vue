@@ -1,11 +1,11 @@
 <template>
   <div>
     <ListItem
-      v-if="selectedCampuses.includes(thisinfo.Location) && selectedResources.includes(thisinfo.Resource)"
+      v-if="matchingItems(selectedCampuses,thisinfo.Campus) && matchingItems(selectedResources, thisinfo.Resource)"
       :info="thisinfo"
     />
     <ListItem
-      v-if="selectedCampuses.includes(otherinfo.Location) && selectedResources.includes(otherinfo.Resource)"
+      v-if="matchingItems(selectedCampuses,otherinfo.Campus) && matchingItems(selectedResources, otherinfo.Resource)"
       :info="otherinfo"
     />
 
@@ -24,24 +24,35 @@
 		selectedResources: [],
     // this is probably where we need to suck things in from the database 
     thisinfo: {
-        Location: 'Santa Cruz', 
-        Resource: 'Food',
+        Campus: ['Santa Cruz'], 
+        Location: "Address / Building",
+        Resource: ['Food'],
         Name: "SUA Food Pantry & Lounge", 
         Description: "Choice-based food pantry and lounge space. Fresh produce, ready-to-eat meals, and non-perishable. Snacks, coffee, tea, & microwave are available", 
         Hours: "Mon-Sat 10am-4pm", 
+        Contact: "bre@ucsc.edu",
         Added: false,
       },
     otherinfo: {
-        Location: 'San Diego', 
-        Resource: 'Housing',
+        Campus: ['San Diego','Merced'], 
+        Location: "Address / Building",
+        Resource: ['Housing'],
         Name: "Housing Resource", 
         Description: "Description", 
         Hours: "Mon-Sat 10am-4pm", 
+        Contact: "bbaltaxe@ucsc.edu",
         Added: false,
       },
   	}),
     methods: {
-        
+        matchingItems(ar1, ar2){
+          for(var i in ar1){
+            if (ar2.includes(ar1[i])){
+              return true
+            } 
+          }
+          return false
+        }
     },
   	created (){
 	    bus.$on('lsel', (data) => {

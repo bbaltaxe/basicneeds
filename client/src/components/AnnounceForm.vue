@@ -21,8 +21,6 @@
           <span class="headline">New Announcement</span>
         </v-card-title>
 
-
-
         <v-card-text>
           <v-text-field
             label="Title*"
@@ -250,7 +248,7 @@
           postDate: this.date,
           removeDate: this.date2,
         }
-        this.$emit("submitAnnouncement", payload)
+        //ADD TO DATABASE HERE
         
       },
        lselected(){
@@ -279,9 +277,6 @@
 
       },
     },
-    emits: [
-      "submitAnnouncement",
-    ],
     
   }
 </script>

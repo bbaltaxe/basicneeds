@@ -90,28 +90,16 @@
       ractive: false,
     }),
     methods: {
-      lselected(){
-        var value = Object.values(this.locations);
+      selectedChips(rawChipValues,nameList){
+        var value = Object.values(rawChipValues);
         var selected = []
         value.sort()
-
+        //matching values to locations
         for(var i=0; i<value.length; i++){
-          selected.push(this.campuses[value[i]])
+          selected.push(nameList[value[i]])
 
         }
 
-        return selected
-
-      },
-      rselected(){
-        var value = Object.values(this.resources);
-        var selected = []
-        value.sort()
-
-        for(var i=0; i<value.length; i++){
-          selected.push(this.options[value[i]])
-
-        }
         return selected
 
       },
@@ -126,7 +114,7 @@
             this.locations.push(i)
           }
         }
-        bus.$emit('lsel',this.lselected())
+        bus.$emit('lsel',this.selectedChips(this.locations,this.campuses))
       }, 
       rtoggle(){
         if (this.ractive == false){
@@ -139,14 +127,14 @@
             this.resources.push(i)
           }
         }
-        bus.$emit('rsel',this.rselected())
+        bus.$emit('rsel',this.selectedChips(this.resources,this.options))
       }, 
       rsel(){
         if (this.ractive == true){ 
           this.ractive = false
         }
         this.$nextTick(() => {
-          bus.$emit('rsel',this.rselected())
+          bus.$emit('rsel',this.selectedChips(this.resources,this.options))
         })
       },
       lsel(){ 
@@ -155,7 +143,7 @@
         }
 
         this.$nextTick(() => {
-          bus.$emit('lsel',this.lselected())
+          bus.$emit('lsel',this.selectedChips(this.locations,this.campuses))
         })
       },
 
