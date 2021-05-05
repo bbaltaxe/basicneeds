@@ -196,7 +196,6 @@
     }, 
     methods: {
       selectedChips(rawChipValues,nameList){
-        console.log(rawChipValues)
         var value = Object.values(rawChipValues);
         var selected = []
         value.sort()
@@ -216,8 +215,6 @@
           rawChipValues.push(nameList.indexOf(selected[i]));
 
         }
-        console.log("---compare:---")
-        console.log(rawChipValues)
         return rawChipValues
       },
       initForm() {
@@ -257,14 +254,19 @@
         return payload
       },
       submitResource(){
-        this.selectedResource=false;
-        this.initForm();
-        this.dialog=false
-
 
         //JESSY YOU CAN ADD DB STUFF HERE 
         // post getPayload()
 
+
+        this.selectedResource=false;
+        this.initForm();
+        this.dialog=false;
+
+        //on success: 
+        bus.$emit('submissionAlert',"Successfully added Resource")
+        //on fail
+        //bus.$emit('submissionAlert',"An error occurred, please try again later.")
 
       }
     }, 

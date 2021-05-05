@@ -18,8 +18,13 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">New Announcement</span>
+          <span class="headline" v-if="selectedAnnouncement">Edit Announcement</span>
+          <span class="headline" v-else>Add Announcement</span>
         </v-card-title>
+      
+        <v-tabs-items v-model="tab">
+        <v-tab-item>
+        <!------------- FORM ---------------->
 
         <v-card-text>
           <v-text-field
@@ -162,7 +167,7 @@
             <v-chip-group
               column
               multiple
-              v-model="serviceOptions"
+              v-model="resources"
             >
               <v-chip
                 v-for="option in options"
@@ -201,18 +206,58 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false"
+            @click="dialog = false && initForm"
           >
             Cancel
           </v-btn>
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false & passForm()"
+            @click="tab = 1"
           >
             Save
           </v-btn>
         </v-card-actions>
+
+        </v-tab-item>
+
+        <v-tab-item>
+
+        <!------------- CHECK ---------------->
+        <v-card-text><h3>This is what your resource will look like:</h3></v-card-text>
+        
+        <Announcement 
+        :info=getPayload()
+        />
+          <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="dialog = false && initForm"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="tab = 0"
+          >
+            Edit
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="submitAnnouncement()"
+          >
+            Submit
+          </v-btn>
+        </v-card-actions>  
+
+        </v-tab-item>
+
+      </v-tabs-items>
+
       </v-card>
     </v-dialog>
   </div>
@@ -220,62 +265,125 @@
 
 
 <script>
+  import { bus } from '../main'
+  import Announcement from './Announcement.vue'
   export default {
+    components: {Announcement},
     data: () => ({
-      date: new Date().toISOString().substr(0, 10),
-      date2: new Date().toISOString().substr(0, 10),
+      //popup control
       dialog: false,
       menu: false,
       menu2: false,
-      campuses:['Santa Cruz', 'Los Angeles', 'Merced', 'Riverside', 'Davis', 'San Diego', 'Santa Barbara', 'Berkeley', 'Irvine', 'San Francisco'], 
+
+      //payload
+      date: new Date().toISOString().substr(0, 10),
+      date2: new Date().toISOString().substr(0, 10),
+      resources:[], 
       locations:[],
-      options:['Wellness','Food','Housing','Finance','Other'],
-      serviceOptions: [],
       title: "",
       description:"",
       urlLink:"",
       altText:"",
+
+      //data for populating chips
+      campuses:['Santa Cruz', 'Los Angeles', 'Merced', 'Riverside', 'Davis', 'San Diego', 'Santa Barbara', 'Berkeley', 'Irvine', 'San Francisco'], 
+      options:['Wellness','Food','Housing','Finance','Other'],
+
+      //data for editing resources
+      selectedAnnouncement: false,
+      selectedAnnouncementInfo: Object,
+
+      //data for check screen
+      tab:0,
     }),
+    created (){
+      bus.$on('editAnnouncement', (data) => {
+        this.selectedAnnouncementInfo = data;
+        this.selectedAnnouncement = true;
+        this.initForm();
+        this.dialog = true
+      })
+    }, 
     methods: {
-      passForm(){
-        var payload = {
-          title: this.title,
-          description: this.description,
-          urlLink: this.urlLink,
-          altText: this.altText,
-          campus: this.lselected(),
-          option: this.rselected(),
-          postDate: this.date,
-          removeDate: this.date2,
+      selectedChips(rawChipValues,nameList){
+        var value = Object.values(rawChipValues);
+        var selected = []
+        value.sort()
+        //matching values to locations
+        for(var i=0; i<value.length; i++){
+          selected.push(nameList[value[i]])
+
         }
-        //ADD TO DATABASE HERE
+
+        return selected
+
+      },
+      getChipValues(selected,nameList){
+        var rawChipValues = []
+        for (var i=0; i<selected.length; i++){
+
+          rawChipValues.push(nameList.indexOf(selected[i]));
+
+        }
+        return rawChipValues
+      },
+      initForm() {
+        //auto fill if editing a resource 
+        this.tab = 0;
+        if (this.selectedAnnouncement == true) {
+          var selected = this.selectedAnnouncementInfo
+          this.urlLink = selected.Image;
+          this.altText = selected.AltText;
+          this.title = selected.Title;
+          this.description = selected.Description;
+          this.resources = this.getChipValues(selected.Resource, this.options); 
+          this.locations = this.getChipValues(selected.Campus,this.campuses);
+          this.date = this.postDate; 
+          this.date2 = this.removeDate;
+          
+        } else {
+        
+          this.urlLink = '';
+          this.altText = '';
+          this.title = '';
+          this.description = '';
+          this.resources = []; 
+          this.locations = [];
+          //this.date = this.postDate; 
+          //this.date2 = this.removeDate;
+        }
         
       },
-       lselected(){
-        var value = Object.values(this.locations);
-        var selected = []
-        value.sort()
-
-        for(var i=0; i<value.length; i++){
-          selected.push(this.campuses[value[i]])
-
+      getPayload(){
+        console.log(this.date)
+        var payload = {
+          Title: this.title,
+          Description: this.description,
+          Image: this.urlLink,
+          AltText: this.altText,
+          Campus: this.selectedChips(this.locations,this.campuses),
+          Resource: this.selectedChips(this.resources,this.options),
+          PostDate: this.date,
+          RemoveDate: this.date2,
         }
-
-        return selected
-
+        return payload
       },
-      rselected(){
-        var value = Object.values(this.serviceOptions);
-        var selected = []
-        value.sort()
+      submitAnnouncement(){
 
-        for(var i=0; i<value.length; i++){
-          selected.push(this.options[value[i]])
+        //JESSY YOU CAN ADD DB STUFF HERE 
+        // post getPayload()
 
-        }
-        return selected
 
-      },
+        this.selectedAnnouncement=false;
+        this.initForm();
+        this.dialog=false;
+
+        //on success: 
+        bus.$emit('submissionAlert',"Successfully added Announcement")
+        //on fail
+        //bus.$emit('submissionAlert',"An error occurred, please try again later.")
+
+      }
     },
     
   }

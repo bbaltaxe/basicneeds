@@ -52,7 +52,7 @@
       absolute: true,
     }),
     created (){
-      bus.$on('remove', (data) => {
+      bus.$on('enableEditResource', (data) => {
         this.remove = data;
       })
     }, 

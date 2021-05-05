@@ -1,0 +1,68 @@
+<template>
+  <div>
+    <Announcement
+      v-if="matchingItems(selectedCampuses,thisinfo.Campus) && matchingItems(selectedResources, thisinfo.Resource)"
+      :info="thisinfo"
+    />
+    <br>
+    <Announcement
+      v-if="matchingItems(selectedCampuses,thisinfo.Campus) && matchingItems(selectedResources, thisinfo.Resource)"
+      :info="otherinfo"
+    />
+    <br>
+
+  </div>
+</template>
+
+
+<script>
+  import { bus } from '../main'
+  import Announcement from '../components/Announcement.vue'
+  export default {
+    components: {Announcement}, 
+	data: () => ({
+  
+		selectedCampuses: [],
+		selectedResources: [],
+    // this is probably where we need to suck things in from the database 
+    thisinfo: {
+        Title: 'Welcome', 
+        Description: "Welcome to our new web portal for basic needs access!",
+        Image: 'https://images.unsplash.com/photo-1550850395-c17a8e90ad0a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3334&q=80',
+        AltText: 'colorful helium balloons float in a blue sky with one white cloud',
+        PostDate: '2021-05-05', 
+        RemoveDate: '2021-06-06',
+        Campus: ['San Diego','Merced','Santa Cruz'],
+        Resource: ['Food'],
+      },
+    otherinfo: {
+        Title: 'Welcome', 
+        Description: "Welcome to our new web portal for basic needs access!",
+        Image: 'https://images.unsplash.com/photo-1550850395-c17a8e90ad0a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3334&q=80',
+        AltText: 'colorful helium balloons float in a blue sky with one white cloud',
+        PostDate: '2021-05-05', 
+        RemoveDate: '2021-06-06',
+        Campus: ['Riverside'],
+        Resource: ['Housing'],
+      },
+  	}),
+    methods: {
+        matchingItems(ar1, ar2){
+          for(var i in ar1){
+            if (ar2.includes(ar1[i])){
+              return true
+            } 
+          }
+          return false
+        }
+    },
+  	created (){
+	    bus.$on('lsel', (data) => {
+	      this.selectedCampuses = data;
+	    })
+	    bus.$on('rsel', (data) => {
+	      this.selectedResources = data;
+	    })
+  	}
+  }
+</script>

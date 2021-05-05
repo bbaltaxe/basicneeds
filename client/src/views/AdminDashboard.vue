@@ -16,13 +16,11 @@
             align-with-title
           >
             <v-tabs-slider color="white" />
-            {{tab}}
             <v-tab>Resources</v-tab>
             <v-tab>Announcements</v-tab>
           </v-tabs>
         </template>
       </v-toolbar>
-
 
       <v-tabs-items v-model="tab">
         <!-- RESOURCE EDIT PAGE -->
@@ -53,7 +51,7 @@
                 <v-btn
                   elevation="2"
                   color="orange"
-                  @click="remove"
+                  @click="enableEditResource"
                 >
                   edit / remove
                 </v-btn>
@@ -79,7 +77,12 @@
             class="mx-auto"
             flat
           > 
-            <v-row>
+                        <v-row>
+              <v-col
+                cols="3"
+              >
+                <ServiceFilter />
+              </v-col>
               <v-col
                 cols="9"
               >
@@ -92,7 +95,7 @@
                 <v-btn
                   elevation="2"
                   color="orange"
-                  dark
+                  @click="enableEditAnnouncement"
                 >
                   edit / remove
                 </v-btn>
@@ -100,9 +103,10 @@
                   color="grey"
                   class="mx-auto"
                   flat 
-                  dark
                 > 
-                  <v-card-text> announcement content can go here </v-card-text>
+                  <SortBar />
+                  <AnnouncementTable />
+
                 </v-card>
               </v-col>
             </v-row>
@@ -110,6 +114,15 @@
         </v-tab-item>
       </v-tabs-items>
     </v-container>
+
+    <!--show submission announcements-->
+    <v-snackbar
+      v-model="snackbar"
+      color="primary"
+    >
+      {{snackText}}
+    </v-snackbar>
+
   </v-card-text>
 </template> 
 
@@ -119,40 +132,51 @@ import axios from "axios";
   import { bus } from '../main'
   import ServiceFilter from '../components/ServiceFilter.vue'
   import ResourceTable from '../components/ResourceTable.vue'
+  import AnnouncementTable from '../components/AnnouncementTable.vue'
   import SortBar from '../components/SortBar.vue'
   import AnnounceForm from '../components/AnnounceForm.vue'
   import ResourceForm from '../components/ResourceForm.vue'
 
   export default {
-    components: {ServiceFilter,ResourceTable,SortBar,AnnounceForm,ResourceForm},
+    components: {ServiceFilter,ResourceTable,AnnouncementTable,SortBar,AnnounceForm,ResourceForm},
     data () {
       return {
         tab: null,
-        showRemove: false,
-        selectedResource: false,
-        selectedResourceInfo: Object,
-        apiRoot: process.env.VUE_APP_API_ROOT,
+        editResource: false,
+        editAnnouncement:false, 
+
+        //success/fail alert
+        snackbar:false,
+        snackText:"",
       }
     },
-    /*
-    created (){
-      bus.$on('editResource', (data) => {
-        this.selectedResourceInfo = data;
-        this.selectedResource = true;
-      })
-    }, 
-    */
     methods: {
-      remove(){
-        if(this.showRemove == false){
-          this.showRemove = true
+      enableEditResource(){
+        if(this.editResource == false){
+          this.editResource = true
         }
         else {
-          this.showRemove = false
+          this.editResource = false
         }
-        bus.$emit('remove',this.showRemove)
+        bus.$emit('enableEditResource',this.editResource)
       },
+      enableEditAnnouncement(){
+        if(this.editAnnouncement == false){
+          this.editAnnouncement = true
+        }
+        else {
+          this.editAnnouncement = false
+        }
+        bus.$emit('enableEditAnnouncement',this.editAnnouncement)
+      },
+    },
+    created (){
+      //show snackbar
+      bus.$on('submissionAlert', (data) => {
+        this.snackText=data; 
+        this.snackbar=true;
+      })
+    },
 
-    }
   }
 </script>
