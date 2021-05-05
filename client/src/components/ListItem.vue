@@ -1,10 +1,9 @@
 <template>
   <v-container>
-    <v-row class="text-center">
+    <v-row >
       <v-col cols="12">
         <v-card
-          class="d-flex mb-6"
-          height="100"
+          class="d-flex justify-space-between flex-wrap mb-6"
           @click="remove && adminSelect()"
         >
           <v-card

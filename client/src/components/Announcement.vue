@@ -2,6 +2,7 @@
   <v-container>
     <v-card
       @click="remove && adminSelect()"
+      class="pa-2"
     >
       <v-row>
         <v-col cols="6">
