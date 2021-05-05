@@ -46,7 +46,7 @@
                   elevation="2"
                   color="green"
                 >
-                  <ResourceForm/>
+                  <ResourceForm />
                 </v-btn>
                 <v-btn
                   elevation="2"
@@ -54,7 +54,6 @@
                   @click="enableEditResource"
                 >
                   edit / remove
-                  
                 </v-btn>
                 <v-card 
                   color="grey"
@@ -62,7 +61,6 @@
                 > 
                   <SortBar />
                   <ResourceTable />
-
                 </v-card>
               </v-col>
             </v-row>
@@ -78,16 +76,13 @@
             class="mx-auto"
             flat
           > 
-                        <v-row>
-
-              <v-col
-
-              >
+            <v-row>
+              <v-col>
                 <v-btn
                   elevation="2"
                   color="green"
                 >
-                  <AnnounceForm/>
+                  <AnnounceForm />
                 </v-btn>
                 <v-btn
                   elevation="2"
@@ -103,7 +98,6 @@
                 > 
                   <SortBar />
                   <AnnouncementTable />
-
                 </v-card>
               </v-col>
             </v-row>
@@ -117,9 +111,8 @@
       v-model="snackbar"
       color="primary"
     >
-      {{snackText}}
+      {{ snackText }}
     </v-snackbar>
-
   </v-card-text>
 </template> 
 
@@ -147,6 +140,13 @@ import axios from "axios";
         snackText:"",
       }
     },
+    created (){
+      //show snackbar
+      bus.$on('submissionAlert', (data) => {
+        this.snackText=data; 
+        this.snackbar=true;
+      })
+    },
     methods: {
       enableEditResource(){
         if(this.editResource == false){
@@ -166,13 +166,6 @@ import axios from "axios";
         }
         bus.$emit('enableEditAnnouncement',this.editAnnouncement)
       },
-    },
-    created (){
-      //show snackbar
-      bus.$on('submissionAlert', (data) => {
-        this.snackText=data; 
-        this.snackbar=true;
-      })
     },
 
   }

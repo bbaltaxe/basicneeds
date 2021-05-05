@@ -8,7 +8,6 @@
       v-if="matchingItems(selectedCampuses,otherinfo.Campus) && matchingItems(selectedResources, otherinfo.Resource)"
       :info="otherinfo"
     />
-
   </div>
 </template>
 
@@ -44,6 +43,14 @@
         Added: false,
       },
   	}),
+  	created (){
+	    bus.$on('lsel', (data) => {
+	      this.selectedCampuses = data;
+	    })
+	    bus.$on('rsel', (data) => {
+	      this.selectedResources = data;
+	    })
+  	},
     methods: {
         matchingItems(ar1, ar2){
           for(var i in ar1){
@@ -53,14 +60,6 @@
           }
           return false
         }
-    },
-  	created (){
-	    bus.$on('lsel', (data) => {
-	      this.selectedCampuses = data;
-	    })
-	    bus.$on('rsel', (data) => {
-	      this.selectedResources = data;
-	    })
-  	}
+    }
   }
 </script>

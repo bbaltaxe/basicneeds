@@ -1,35 +1,32 @@
 <template>
   <v-container>
     <v-card
-    @click="remove && adminSelect()"
+      @click="remove && adminSelect()"
     >
-    <v-row>
-      <v-col cols="6">
-     <v-card-title>
-        <span class="headline">{{info.Title}}</span>
-      </v-card-title>
-      <v-card-text>
-        {{info.Description}}
-
-      </v-card-text>
-    </v-col>
-    <v-col cols="6">
-      <v-card>
-      <v-img
-          :src="info.Image"
-          contain
-        ></v-img>
-      </v-card>
-</v-col>
-</v-row>
+      <v-row>
+        <v-col cols="6">
+          <v-card-title>
+            <span class="headline">{{ info.Title }}</span>
+          </v-card-title>
+          <v-card-text>
+            {{ info.Description }}
+          </v-card-text>
+        </v-col>
+        <v-col cols="6">
+          <v-card>
+            <v-img
+              :src="info.Image"
+              height="250"
+            />
+          </v-card>
+        </v-col>
+      </v-row>
       <v-overlay
-              :absolute="absolute"
-              :value="remove"
-              :opacity=".2"
-            >
-            </v-overlay>
+        :absolute="absolute"
+        :value="remove"
+        :opacity=".2"
+      />
     </v-card>
-
   </v-container>
 </template>
 <script>

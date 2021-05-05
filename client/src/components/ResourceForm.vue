@@ -18,138 +18,143 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline" v-if="selectedResource">Edit Resource</span>
-          <span class="headline" v-else>Add Resource</span>
+          <span
+            v-if="selectedResource"
+            class="headline"
+          >Edit Resource</span>
+          <span
+            v-else
+            class="headline"
+          >Add Resource</span>
         </v-card-title>
 
 
-      <v-tabs-items v-model="tab">
-        <v-tab-item>
-        <!------------- FORM ---------------->
-        <v-card-text>
-          <v-text-field
-            label="Title*"
-            required
-            v-model="name"
-          />
+        <v-tabs-items v-model="tab">
+          <v-tab-item>
+            <!------------- FORM ---------------->
+            <v-card-text>
+              <v-text-field
+                v-model="name"
+                label="Title*"
+                required
+              />
 
-          <v-textarea
-            label="Description*"
-            counter
-            maxlength="120"
-            full-width
-            single-line
-            required
-            v-model="description"
-          />
+              <v-textarea
+                v-model="description"
+                label="Description*"
+                counter
+                maxlength="120"
+                full-width
+                single-line
+                required
+              />
 
-          <v-text-field 
-            v-model="hours" 
-            label="Hours" 
-            hint="Ex: MWF 3pm-5pm, TTh 11am-2pm"
-            required 
-          />
+              <v-text-field 
+                v-model="hours" 
+                label="Hours" 
+                hint="Ex: MWF 3pm-5pm, TTh 11am-2pm"
+                required 
+              />
 
-          <v-text-field 
-            v-model="address" 
-            label="Location" 
-            hint="Ex: Student Health Center, Room 112"
-            required 
-          />
+              <v-text-field 
+                v-model="address" 
+                label="Location" 
+                hint="Ex: Student Health Center, Room 112"
+                required 
+              />
 
-          <v-card-text>
-            Relevant Resources*
+              <v-card-text>
+                Relevant Resources*
 
-            <v-chip-group
-              v-model="resources"
-              column
-              multiple
-            >
-              <v-chip
-                v-for="option in options"
-                :key="option"
-                filter 
-                outlined
-              > 
-                {{ option }}
-              </v-chip>
-            </v-chip-group>
-          </v-card-text>
+                <v-chip-group
+                  v-model="resources"
+                  column
+                  multiple
+                >
+                  <v-chip
+                    v-for="option in options"
+                    :key="option"
+                    filter 
+                    outlined
+                  > 
+                    {{ option }}
+                  </v-chip>
+                </v-chip-group>
+              </v-card-text>
 
-          <v-card-text>
-            Relevant Campuses*
-            <v-chip-group
-              v-model="locations" 
-              column
-              multiple
-            >
-              <v-chip
-                v-for="campus in campuses"
-                :key="campus"
-                filter 
-                outlined
-              > 
-                {{ campus }}
-              </v-chip>
-            </v-chip-group>
-          </v-card-text>
+              <v-card-text>
+                Relevant Campuses*
+                <v-chip-group
+                  v-model="locations" 
+                  column
+                  multiple
+                >
+                  <v-chip
+                    v-for="campus in campuses"
+                    :key="campus"
+                    filter 
+                    outlined
+                  > 
+                    {{ campus }}
+                  </v-chip>
+                </v-chip-group>
+              </v-card-text>
 
-          <v-text-field v-model="email" label="Contact Email" />
+              <v-text-field
+                v-model="email"
+                label="Contact Email"
+              />
+            </v-card-text>
 
-        </v-card-text>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="dialog = false && initForm"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="tab = 1"
+              >
+                Save
+              </v-btn>
+            </v-card-actions>  
+          </v-tab-item>
 
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false && initForm"
-          >
-            Cancel
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="tab = 1"
-          >
-            Save
-          </v-btn>
-        </v-card-actions>  
-        </v-tab-item>
-
-        <v-tab-item>
-
-        <!------------- CHECK ---------------->
-        <v-card-text><h3>This is what your resource will look like:</h3></v-card-text>
-        <ListItem :info="getPayload()"/>
-          <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false && initForm"
-          >
-            Cancel
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="tab = 0"
-          >
-            Edit
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="submitResource()"
-          >
-            Submit
-          </v-btn>
-        </v-card-actions>  
-
-        </v-tab-item>
-
-      </v-tabs-items>
+          <v-tab-item>
+            <!------------- CHECK ---------------->
+            <v-card-text><h3>This is what your resource will look like:</h3></v-card-text>
+            <ListItem :info="getPayload()" />
+            <v-card-actions>
+              <v-spacer />
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="dialog = false && initForm"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="tab = 0"
+              >
+                Edit
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="submitResource()"
+              >
+                Submit
+              </v-btn>
+            </v-card-actions>
+          </v-tab-item>
+        </v-tabs-items>
       </v-card>
     </v-dialog>
   </div>

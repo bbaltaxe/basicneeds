@@ -18,246 +18,247 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline" v-if="selectedAnnouncement">Edit Announcement</span>
-          <span class="headline" v-else>Add Announcement</span>
+          <span
+            v-if="selectedAnnouncement"
+            class="headline"
+          >Edit Announcement</span>
+          <span
+            v-else
+            class="headline"
+          >Add Announcement</span>
         </v-card-title>
       
         <v-tabs-items v-model="tab">
-        <v-tab-item>
-        <!------------- FORM ---------------->
+          <v-tab-item>
+            <!------------- FORM ---------------->
 
-        <v-card-text>
-          <v-text-field
-            label="Title*"
-            v-model="title"
-            required
-          />
-
-          <v-textarea
-            label="Description*"
-            v-model="description"
-            counter
-            maxlength="120"
-            full-width
-            single-line
-            required
-          />
-
-          <v-row>
-            <v-col
-              cols="12"
-              lg="6"
-            >
+            <v-card-text>
               <v-text-field
-                v-model="urlLink"
-                label="Url to image"
+                v-model="title"
+                label="Title*"
+                required
               />
-            </v-col>
-            <v-col
-              cols="12"
-              lg="6"
-            >
-              <v-text-field
-                v-model="altText"
-                label="Alt text for image"
+
+              <v-textarea
+                v-model="description"
+                label="Description*"
+                counter
+                maxlength="120"
+                full-width
+                single-line
+                required
               />
-            </v-col>
-          </v-row>
 
-
-          <v-row>
-            <v-col
-              cols="12"
-              lg="6"
-            >
-              <v-menu
-                ref="menu"
-                v-model="menu"
-                :close-on-content-click="false"
-                :return-value.sync="date"
-                transition="scale-transition"
-                offset-y
-                min-width="auto"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    v-model="date"
-                    label="Post Date*"
-                    prepend-icon="mdi-calendar"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
-                  />
-                </template>
-                <v-date-picker
-                  v-model="date"
-                  no-title
-                  scrollable
+              <v-row>
+                <v-col
+                  cols="12"
+                  lg="6"
                 >
-                  <v-spacer />
-                  <v-btn
-                    text
-                    color="primary"
-                    @click="menu = false"
-                  >
-                    Cancel
-                  </v-btn>
-                  <v-btn
-                    text
-                    color="primary"
-                    @click="$refs.menu.save(date)"
-                  >
-                    OK
-                  </v-btn>
-                </v-date-picker>
-              </v-menu>
-            </v-col>
-
-            <v-col
-              cols="12"
-              lg="6"
-            >
-              <v-menu
-                ref="menu2"
-                v-model="menu2"
-                :close-on-content-click="false"
-                :return-value.sync="date2"
-                transition="scale-transition"
-                offset-y
-                min-width="auto"
-              >
-                <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                    v-model="date2"
-                    label="Remove Date*"
-                    prepend-icon="mdi-calendar"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
+                    v-model="urlLink"
+                    label="Url to image"
                   />
-                </template>
-                <v-date-picker
-                  v-model="date2"
-                  no-title
-                  scrollable
+                </v-col>
+                <v-col
+                  cols="12"
+                  lg="6"
                 >
-                  <v-spacer />
-                  <v-btn
-                    text
-                    color="primary"
-                    @click="menu2 = false"
+                  <v-text-field
+                    v-model="altText"
+                    label="Alt text for image"
+                  />
+                </v-col>
+              </v-row>
+
+
+              <v-row>
+                <v-col
+                  cols="12"
+                  lg="6"
+                >
+                  <v-menu
+                    ref="menu"
+                    v-model="menu"
+                    :close-on-content-click="false"
+                    :return-value.sync="date"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
                   >
-                    Cancel
-                  </v-btn>
-                  <v-btn
-                    text
-                    color="primary"
-                    @click="$refs.menu2.save(date2)"
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="date"
+                        label="Post Date*"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                      />
+                    </template>
+                    <v-date-picker
+                      v-model="date"
+                      no-title
+                      scrollable
+                    >
+                      <v-spacer />
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="menu = false"
+                      >
+                        Cancel
+                      </v-btn>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.menu.save(date)"
+                      >
+                        OK
+                      </v-btn>
+                    </v-date-picker>
+                  </v-menu>
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  lg="6"
+                >
+                  <v-menu
+                    ref="menu2"
+                    v-model="menu2"
+                    :close-on-content-click="false"
+                    :return-value.sync="date2"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
                   >
-                    OK
-                  </v-btn>
-                </v-date-picker>
-              </v-menu>
-            </v-col>
-          </v-row>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="date2"
+                        label="Remove Date*"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                      />
+                    </template>
+                    <v-date-picker
+                      v-model="date2"
+                      no-title
+                      scrollable
+                    >
+                      <v-spacer />
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="menu2 = false"
+                      >
+                        Cancel
+                      </v-btn>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.menu2.save(date2)"
+                      >
+                        OK
+                      </v-btn>
+                    </v-date-picker>
+                  </v-menu>
+                </v-col>
+              </v-row>
 
-          <v-card-text>
-            Relevant Resources*
+              <v-card-text>
+                Relevant Resources*
 
-            <v-chip-group
-              column
-              multiple
-              v-model="resources"
-            >
-              <v-chip
-                v-for="option in options"
-                :key="option"
-                filter 
-                outlined
-              > 
-                {{ option }}
-              </v-chip>
-            </v-chip-group>
-          </v-card-text>
+                <v-chip-group
+                  v-model="resources"
+                  column
+                  multiple
+                >
+                  <v-chip
+                    v-for="option in options"
+                    :key="option"
+                    filter 
+                    outlined
+                  > 
+                    {{ option }}
+                  </v-chip>
+                </v-chip-group>
+              </v-card-text>
 
-          <v-card-text>
-            Relevant Campuses*
-            <v-chip-group
-              column
-              multiple
-              v-model="locations"
-            >
-              <v-chip
-                v-for="campus in campuses"
-                :key="campus"
-                filter 
-                outlined
-              > 
-                {{ campus }}
-              </v-chip>
-            </v-chip-group>
-          </v-card-text>
-        </v-card-text>
+              <v-card-text>
+                Relevant Campuses*
+                <v-chip-group
+                  v-model="locations"
+                  column
+                  multiple
+                >
+                  <v-chip
+                    v-for="campus in campuses"
+                    :key="campus"
+                    filter 
+                    outlined
+                  > 
+                    {{ campus }}
+                  </v-chip>
+                </v-chip-group>
+              </v-card-text>
+            </v-card-text>
 
 
 
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false && initForm"
-          >
-            Cancel
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="tab = 1"
-          >
-            Save
-          </v-btn>
-        </v-card-actions>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="dialog = false && initForm"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="tab = 1"
+              >
+                Save
+              </v-btn>
+            </v-card-actions>
+          </v-tab-item>
 
-        </v-tab-item>
-
-        <v-tab-item>
-
-        <!------------- CHECK ---------------->
-        <v-card-text><h3>This is what your resource will look like:</h3></v-card-text>
+          <v-tab-item>
+            <!------------- CHECK ---------------->
+            <v-card-text><h3>This is what your resource will look like:</h3></v-card-text>
         
-        <Announcement 
-        :info=getPayload()
-        />
-          <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false && initForm"
-          >
-            Cancel
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="tab = 0"
-          >
-            Edit
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="submitAnnouncement()"
-          >
-            Submit
-          </v-btn>
-        </v-card-actions>  
-
-        </v-tab-item>
-
-      </v-tabs-items>
-
+            <Announcement 
+              :info="getPayload()"
+            />
+            <v-card-actions>
+              <v-spacer />
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="dialog = false && initForm"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="tab = 0"
+              >
+                Edit
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="submitAnnouncement()"
+              >
+                Submit
+              </v-btn>
+            </v-card-actions>
+          </v-tab-item>
+        </v-tabs-items>
       </v-card>
     </v-dialog>
   </div>

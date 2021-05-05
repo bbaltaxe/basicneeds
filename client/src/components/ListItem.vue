@@ -18,22 +18,21 @@
             </b>
             <br>
             <div v-if="directPrint(value)">
-            {{ value }}
+              {{ value }}
             </div>
             <div 
-            v-else 
-            v-for="item in value"
-            :key="item"
+              v-for="item in value" 
+              v-else
+              :key="item"
             > 
-            {{item}}
+              {{ item }}
             </div>
           </v-card>
-            <v-overlay
-              :absolute="absolute"
-              :value="remove"
-              :opacity=".2"
-            >
-            </v-overlay>
+          <v-overlay
+            :absolute="absolute"
+            :value="remove"
+            :opacity=".2"
+          />
         </v-card>
       </v-col>
     </v-row>

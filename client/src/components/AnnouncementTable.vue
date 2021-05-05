@@ -1,12 +1,11 @@
 <template>
   <div>
-
     <Announcement
-    :info="thisinfo"
+      :info="thisinfo"
     />
     <br>
     <Announcement
-    :info="otherinfo"
+      :info="otherinfo"
     />
     <br>
     <!-- Sorting code, but don't sort for now: 
@@ -22,7 +21,6 @@
     />
     <br>
   -->
-
   </div>
 </template>
 
@@ -58,6 +56,14 @@
         Resource: ['Housing'],
       },
   	}),
+  	created (){
+	    bus.$on('lsel', (data) => {
+	      this.selectedCampuses = data;
+	    })
+	    bus.$on('rsel', (data) => {
+	      this.selectedResources = data;
+	    })
+  	},
     methods: {
         matchingItems(ar1, ar2){
           for(var i in ar1){
@@ -67,14 +73,6 @@
           }
           return false
         }
-    },
-  	created (){
-	    bus.$on('lsel', (data) => {
-	      this.selectedCampuses = data;
-	    })
-	    bus.$on('rsel', (data) => {
-	      this.selectedResources = data;
-	    })
-  	}
+    }
   }
 </script>
