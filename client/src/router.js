@@ -9,6 +9,7 @@ import Login from './views/Login.vue'
 import Add from './views/Add.vue'
 import Register from './views/Register.vue'
 import DashBoard from './views/DashBoard.vue'
+import MyResources from './views/MyResources.vue'
 
 Vue.use(Router)
 
@@ -61,6 +62,11 @@ export default new Router({
 			path: '/dashBoard',
 			name: 'dashBoard',
 			component: DashBoard
+		},
+		{
+			path: '/myResources',
+			name: 'myResources',
+			component: MyResources
 		}
 
 	]

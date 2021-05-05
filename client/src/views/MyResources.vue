@@ -15,7 +15,6 @@
           <!--  -->
         </v-sheet>
       </v-col>
-
     </div>
   </v-card-text>
 </template>
