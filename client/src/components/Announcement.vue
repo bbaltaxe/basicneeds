@@ -10,6 +10,7 @@
       </v-card-title>
       <v-card-text>
         {{info.Description}}
+
       </v-card-text>
     </v-col>
     <v-col cols="6">

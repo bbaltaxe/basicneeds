@@ -54,6 +54,7 @@
                   @click="enableEditResource"
                 >
                   edit / remove
+                  
                 </v-btn>
                 <v-card 
                   color="grey"
@@ -78,13 +79,9 @@
             flat
           > 
                         <v-row>
+
               <v-col
-                cols="3"
-              >
-                <ServiceFilter />
-              </v-col>
-              <v-col
-                cols="9"
+
               >
                 <v-btn
                   elevation="2"
