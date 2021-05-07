@@ -26,13 +26,10 @@ def register():
         username = post_data['username']
         password = post_data['password']
 
-        #db = get_db()
-        error = False
-        print(username)
-        user_found = User.query.filter_by(username=username).first()
-        #user_found = db.execute('SELECT id FROM user WHERE username = ?', (username,)).fetchone()
 
-        print(user_found)
+        error = False
+        user_found = User.query.filter_by(username=username).first()
+
 
         if not username:
             response_object['insert_status'] = "fail"
@@ -48,13 +45,6 @@ def register():
             error = True
 
         if not error:
-            """
-            db.execute(
-                'INSERT INTO user (username, password) VALUES (?, ?)',
-                (username, generate_password_hash(password))
-            )
-            db.commit()
-            """
             user = User(username=username,
                         password=generate_password_hash(password))
             db.session.add(user)
