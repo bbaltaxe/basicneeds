@@ -8,13 +8,15 @@ import MentalWellbeing from './views/MentalWellbeing.vue'
 import Login from './views/Login.vue'
 import Add from './views/Add.vue'
 import Register from './views/Register.vue'
+import DashBoard from './views/DashBoard.vue'
+import MyResources from './views/MyResources.vue'
 
 Vue.use(Router)
 
 export default new Router({
 
 	mode: 'history',
-	base: process.env.BASE_URL, 
+	base: process.env.BASE_URL,
 	routes:[
 		{
 			path: '/',
@@ -42,19 +44,29 @@ export default new Router({
 			component: MentalWellbeing
 		},
 		{
-			path: '/login', 
+			path: '/login',
 			name: 'login',
 			component: Login
-		}, 
+		},
 		{
-			path: '/add', 
-			name: 'add', 
+			path: '/add',
+			name: 'add',
 			component: Add
 		},
 		{
 			path: '/register',
 			name: 'register',
 			component: Register
+		},
+		{
+			path: '/dashBoard',
+			name: 'dashBoard',
+			component: DashBoard
+		},
+		{
+			path: '/myResources',
+			name: 'myResources',
+			component: MyResources
 		}
 
 	]
