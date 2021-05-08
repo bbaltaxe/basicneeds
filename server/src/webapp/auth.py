@@ -7,11 +7,14 @@ from flask import (
 from flask_cors import CORS
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from webapp.db import get_db
+from webapp import db
+from webapp.models import User, Admin
 
-bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-@bp.route('/register', methods=('GET', 'POST'))
+auth = Blueprint('auth', __name__, url_prefix='/auth')
+
+
+@auth.route('/register', methods=('GET', 'POST'))
 def register():
     response_object = {
         "insert_status": "success",
@@ -23,9 +26,9 @@ def register():
         username = post_data['username']
         password = post_data['password']
 
-        db = get_db()
+
         error = False
-        user_found = db.execute('SELECT id FROM user WHERE username = ?', (username,)).fetchone()
+        user_found = User.query.filter_by(username=username).first()
 
 
         if not username:
@@ -42,51 +45,46 @@ def register():
             error = True
 
         if not error:
-            db.execute(
-                'INSERT INTO user (username, password) VALUES (?, ?)',
-                (username, generate_password_hash(password))
-            )
-            db.commit()
+            user = User(username=username,
+                        password=generate_password_hash(password))
+            db.session.add(user)
+            db.session.commit()
 
     return jsonify(response_object)
 
 
-@bp.route('/login', methods=('GET', 'POST'))
+@auth.route('/login', methods=('GET', 'POST'))
 def login():
     response_object = {
         "status": "success",
         "auth": "fail"
     }
-    
+
     if request.method == 'POST':
         post_data = request.get_json()
         username = post_data['username']
         password = post_data['password']
-        print(post_data)
-        db = get_db()
-        error = False
-        user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (username,)
-        ).fetchone()
 
-        print(user)
+        user = User.query.filter_by(username=username).first()
+        error = False
+
         if user is None:
             response_object['msg'] = 'Incorrect username.'
             error = True
-        elif not check_password_hash(user['password'], password):
+        elif not check_password_hash(user.password, password):
             response_object['msg'] = 'Incorrect password.'
             error = True
 
-        #proper auth
+        # proper auth
         if not error:
-
             response_object['msg'] = "Login Successful"
             response_object['auth'] = "success"
             response_object['token'] = uuid.uuid1()
             return jsonify(response_object), 200
         else:
             return jsonify(response_object), 401
- 
-@bp.route('/logout')
+
+
+@auth.route('/logout')
 def logout():
     return redirect(url_for('index'))
