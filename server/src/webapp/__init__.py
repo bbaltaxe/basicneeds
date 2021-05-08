@@ -54,8 +54,8 @@ def create_app(test_config=None):
     from .static_pages import campus
     app.register_blueprint(campus.bp)
 
-    from .services import admin
-    app.register_blueprint(admin.bp)
-
     return app
 
+
+if __name__ == '__main__':
+    app.run()
