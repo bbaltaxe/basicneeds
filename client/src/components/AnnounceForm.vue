@@ -203,6 +203,15 @@
                   </v-chip>
                 </v-chip-group>
               </v-card-text>
+
+              <v-btn 
+                block
+                color="error"
+                dark
+                @click="tab = 2"
+              >
+              Remove
+              </v-btn>
             </v-card-text>
 
 
@@ -255,6 +264,31 @@
                 @click="submitAnnouncement()"
               >
                 Submit
+              </v-btn>
+            </v-card-actions>
+          </v-tab-item>
+
+          <v-tab-item>
+            <!------------- CHECK on Remove ---------------->
+            <v-card-text><h3>Are you sure you want to permanently remove this announcement?</h3></v-card-text>
+            <Announcement 
+              :info="getPayload()"
+            />
+            <v-card-actions>
+              <v-spacer />
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="dialog = false && initForm"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="removeResource()"
+              >
+                Remove
               </v-btn>
             </v-card-actions>
           </v-tab-item>
@@ -384,7 +418,19 @@
         //on fail
         //bus.$emit('submissionAlert',"An error occurred, please try again later.")
 
-      }
+      },
+      removeResource(){
+        //JESSY YOU CAN ADD DB STUFF HERE 
+        // remove getPayload()
+
+        this.selectedResource=false;
+        this.initForm();
+        this.dialog=false;
+        //on success: 
+        bus.$emit('submissionAlert',"Announcement has been removed")
+        //on fail
+        //bus.$emit('submissionAlert',"An error occurred, please try again later.")
+      },
     },
     
   }

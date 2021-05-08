@@ -25,10 +25,11 @@
           <span
             v-else
             class="headline"
-          >Add Resource</span>
+          >Add Resource</span> 
+
         </v-card-title>
 
-
+              
         <v-tabs-items v-model="tab">
           <v-tab-item>
             <!------------- FORM ---------------->
@@ -38,7 +39,7 @@
                 label="Title*"
                 required
               />
-
+            
               <v-textarea
                 v-model="description"
                 label="Description*"
@@ -104,9 +105,19 @@
                 v-model="email"
                 label="Contact Email"
               />
+
+              <v-btn 
+                block
+                color="error"
+                dark
+                @click="tab = 2"
+              >
+              Remove
+              </v-btn>
             </v-card-text>
 
             <v-card-actions>
+
               <v-spacer />
               <v-btn
                 color="blue darken-1"
@@ -151,6 +162,29 @@
                 @click="submitResource()"
               >
                 Submit
+              </v-btn>
+            </v-card-actions>
+          </v-tab-item>
+
+          <v-tab-item>
+            <!------------- CHECK on Remove ---------------->
+            <v-card-text><h3>Are you sure you want to permanently remove this resource?</h3></v-card-text>
+            <ListItem :info="getPayload()" />
+            <v-card-actions>
+              <v-spacer />
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="dialog = false && initForm"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="removeResource()"
+              >
+                Remove
               </v-btn>
             </v-card-actions>
           </v-tab-item>
@@ -273,7 +307,19 @@
         //on fail
         //bus.$emit('submissionAlert',"An error occurred, please try again later.")
 
-      }
+      },
+      removeResource(){
+        //JESSY YOU CAN ADD DB STUFF HERE 
+        // remove getPayload()
+
+        this.selectedResource=false;
+        this.initForm();
+        this.dialog=false;
+        //on success: 
+        bus.$emit('submissionAlert',"Resource has been removed")
+        //on fail
+        //bus.$emit('submissionAlert',"An error occurred, please try again later.")
+      },
     }, 
   }
 </script>

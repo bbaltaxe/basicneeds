@@ -26,7 +26,7 @@
         <!-- RESOURCE EDIT PAGE -->
         <v-tab-item>
           <v-card>
-            <v-card-text>Edit resource information here</v-card-text>
+            <br>
           </v-card>
 
           <v-card
@@ -70,7 +70,7 @@
         <!-- ANNOUNCEMENT EDIT PAGE -->
         <v-tab-item>
           <v-card>
-            <v-card-text>Edit announcement information here</v-card-text>
+            <br>
           </v-card>
           <v-card
             class="mx-auto"

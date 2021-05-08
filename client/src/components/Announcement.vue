@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-card
-      @click="remove && adminSelect()"
       class="pa-2"
+      @click="remove && adminSelect()"
     >
       <v-row>
         <v-col cols="6">
