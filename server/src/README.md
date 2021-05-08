@@ -3,7 +3,7 @@
 ## To run background server
 
 1. First ensure you have 2 seperate terminals; one dedicated for the client and one the server.
-2. Navigate to the mgflask folder
+2. Navigate to the basicneeds/server folder
 
     ```sh
     $ cd basicneeds/server/
