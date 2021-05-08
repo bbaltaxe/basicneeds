@@ -1,8 +1,7 @@
 
 <template>
   <v-card-text>
-    <div class="home">
-    </div>
+    <div class="home" />
   </v-card-text>
 </template>
 

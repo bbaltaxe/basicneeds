@@ -8,6 +8,8 @@ import MentalWellbeing from './views/MentalWellbeing.vue'
 import Login from './views/Login.vue'
 import Add from './views/Add.vue'
 import Register from './views/Register.vue'
+import AdminDashboard from './views/AdminDashboard.vue'
+
 
 Vue.use(Router)
 
@@ -55,6 +57,12 @@ export default new Router({
 			path: '/register',
 			name: 'register',
 			component: Register
+
+		},
+		{
+			path: '/admin-dashboard',
+			name: 'admin-dashboard',
+			component: AdminDashboard
 		}
 
 	]
